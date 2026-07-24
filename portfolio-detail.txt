@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Portfolio Details - Personal Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume - v4.8.1
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+  <style>
+
+
+    /* Custom CSS */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #444;
+    }
+    
+    .portfolio-header {
+      text-align: center;
+      padding: 80px 0 40px;
+      position: relative;
+    }
+    
+    .portfolio-header h1 {
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 36px;
+    }
+    
+    .portfolio-header p {
+      color: #7f8c8d;
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .portfolio-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      background: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .portfolio-image-container {
+      position: relative;
+      overflow: hidden;
+      height: 250px;
+    }
+    
+    .portfolio-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+    
+    .portfolio-item:hover .portfolio-image {
+      transform: scale(1.05);
+    }
+    
+    .portfolio-description {
+      padding: 25px;
+    }
+    
+    .portfolio-description h4 {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #2c3e50;
+    }
+    
+    .portfolio-description p {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    
+    .portfolio-tag {
+      background-color: #e9f7fe;
+      color: #3498db;
+      border-radius: 50px;
+      font-size: 12px;
+      padding: 5px 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .view-button {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .view-button:hover {
+      background-color: #2980b9;
+      color: white;
+    }
+    
+    /* Modal styling */
+    .zoom-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      transition: 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    
+    .zoom-content {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 90vh;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+    
+    .close-zoom {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      opacity: 0.8;
+    }
+    
+    .close-zoom:hover {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+      opacity: 1;
+    }
+    
+    /* Animasi */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    /* Responsif */
+    @media (max-width: 992px) {
+      .portfolio-header {
+        padding: 60px 0 30px;
+      }
+      
+      .portfolio-header h1 {
+        font-size: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .portfolio-image-container {
+        height: 220px;
+      }
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex flex-column justify-content-center">
+
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <!-- <li><a href="index.html" class="nav-link scrollto active"><i class="bx bx-arrow-back"></i> <span>Home Page</span></a></li> -->
+
+        <li><a href="#" class="nav-link scrollto active" onclick="backToHome()"><i class="bx bx-arrow-back"></i> <span>Home Page</span></a></li>
+
+
+
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </header><!-- End Header -->
+
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+<!-- Header Section -->
+<header class="portfolio-header">
+  <div class="container">
+    <h1 class="fade-in">Portofolio</h1>
+    <p class="fade-in">Kumpulan karya terbaik yang menunjukkan kreativitas dan keahlian saya dalam desain web.</p>
+  </div>
+</header>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-5">
+  <div class="container">
+    <div class="row gy-4">
+      
+      <!-- Project 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="portfolio-item fade-in" style="animation-delay: 0.1s;">
+          <div class="portfolio-image-container">
+            <img src="assets/img/portfolio/portofolio-1.png" alt="Website E-commerce" class="portfolio-image" onclick="openZoom(this.src, 'Website E-commerce')">
+          </div>
+          <div class="portfolio-description">
+            <h4>Website E-commerce</h4>
+            <p>Desain modern untuk toko online dengan pengalaman belanja yang menarik dan mudah digunakan.</p>
+            <!-- <div class="portfolio-tags">
+              <span class="portfolio-tag">Web Design</span>
+              <span class="portfolio-tag">UI/UX</span>
+              <span class="portfolio-tag">E-commerce</span>
+            </div> -->
+            <!-- <div class="mt-3">
+              <a href="#" class="view-button"><i class="fas fa-eye me-1"></i> Lihat Detail</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="portfolio-item fade-in" style="animation-delay: 0.2s;">
+          <div class="portfolio-image-container">
+            <img src="assets/img/portfolio/portofolio-2.png" alt="Aplikasi Dashboard" class="portfolio-image" onclick="openZoom(this.src, 'Aplikasi Dashboard')">
+          </div>
+          <div class="portfolio-description">
+            <h4>Aplikasi Dashboard</h4>
+            <p>Dashboard analitik interaktif untuk visualisasi data dan monitoring performa bisnis secara real-time.</p>
+            <!-- <div class="portfolio-tags">
+              <span class="portfolio-tag">Dashboard</span>
+              <span class="portfolio-tag">Data Viz</span>
+              <span class="portfolio-tag">Web App</span>
+            </div> -->
+            <!-- <div class="mt-3">
+              <a href="#" class="view-button"><i class="fas fa-eye me-1"></i> Lihat Detail</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="portfolio-item fade-in" style="animation-delay: 0.3s;">
+          <div class="portfolio-image-container">
+            <img src="assets/img/portfolio/portofolio-3.png" alt="Desain Landing Page" class="portfolio-image" onclick="openZoom(this.src, 'Desain Landing Page')">
+          </div>
+          <div class="portfolio-description">
+            <h4>Desain Landing Page</h4>
+            <p>Landing page yang menarik untuk produk SaaS dengan tingkat konversi yang tinggi dan UX yang optimal.</p>
+            <!-- <div class="portfolio-tags">
+              <span class="portfolio-tag">Landing Page</span>
+              <span class="portfolio-tag">SaaS</span>
+              <span class="portfolio-tag">Conversion</span>
+            </div> -->
+            <!-- <div class="mt-3">
+              <a href="#" class="view-button"><i class="fas fa-eye me-1"></i> Lihat Detail</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Modal untuk Zoom -->
+<div id="zoomModal" class="zoom-modal">
+  <span class="close-zoom" onclick="closeZoom()">&times;</span>
+  <img id="zoomImage" class="zoom-content">
+  <div id="captionText" style="text-align: center; color: white; padding: 10px; font-size: 18px;"></div>
+</div>
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Fungsi untuk membuka zoom
+    function openZoom(imgSrc, caption) {
+      const modal = document.getElementById('zoomModal');
+      const modalImg = document.getElementById('zoomImage');
+      const captionText = document.getElementById('captionText');
+      
+      modal.style.display = "block";
+      modalImg.src = imgSrc;
+      captionText.innerHTML = caption || '';
+      
+      // Tambahkan event listener untuk menutup modal ketika klik di luar gambar
+      modal.onclick = function(event) {
+        if (event.target === modal) {
+          closeZoom();
+        }
+      };
+    }
+    
+    // Fungsi untuk menutup zoom
+    function closeZoom() {
+      document.getElementById('zoomModal').style.display = "none";
+    }
+    
+    // Tambahkan listener untuk escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        closeZoom();
+      }
+    });
+    
+    // Animasi elemen saat scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      // Animasi elemen pertama kali load
+      fadeElements.forEach(function(element) {
+        element.style.opacity = '0';
+        setTimeout(function() {
+          element.style.opacity = '1';
+        }, parseInt(element.style.animationDelay || '0') * 1000);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

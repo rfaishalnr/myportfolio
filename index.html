@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Faishal Nizaar Rizq - Portfolio</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    /* General Styles */
+    body {
+      font-family: "Open Sans", sans-serif;
+      color: #272829;
+      position: relative;
+    }
+
+    /* Skills Styling */
+    .skills .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .skills .skill-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .skills .skill-name {
+      font-weight: bold;
+      color: #444;
+    }
+
+    .skills .level {
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.9em;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .skills .level.beginner {
+      background-color: #f76c6c;
+    }
+
+    .skills .level.intermediate {
+      background-color: #ffba49;
+    }
+
+    .skills .level.advanced {
+      background-color: #4ecdc4;
+    }
+
+    .skills .level.expert {
+      background-color: #1a535c;
+    }
+
+    /* Portfolio Styles */
+    #portfolio-content {
+      display: none;
+    }
+
+    .portfolio-header {
+      background-color: #0563bb;
+      color: white;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .portfolio-item {
+      margin-bottom: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .portfolio-image-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .portfolio-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .portfolio-item:hover .portfolio-image {
+      transform: scale(1.1);
+    }
+
+    .portfolio-description {
+      padding: 20px;
+      background: white;
+      min-height: 200px;
+    }
+
+    .portfolio-description h4 {
+      color: #0563bb;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .portfolio-description p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .portfolio-tag {
+      display: inline-block;
+      background: #f8f9fa;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .view-button {
+      display: inline-block;
+      background: #0563bb;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .view-button:hover {
+      background: #0e58aa;
+      color: white;
+    }
+
+    /* Zoom Modal */
+    .zoom-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .zoom-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+      margin-top: 2%;
+    }
+
+    .close-zoom {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background-color: #0563bb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: 600;
+    }
+
+    .back-button:hover {
+      background-color: #0e58aa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Mobile nav toggle button -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+  
+  <!-- Header -->
+  <header id="header" class="d-flex flex-column justify-content-center">
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li><a href="#about" class="nav-link scrollto" id="about-link"><i class="bx bx-user"></i> <span>About</span></a></li>
+        <li><a href="#skills" class="nav-link scrollto" id="about-link"><i class="bx bx-code"></i> <span>Skills</span></a></li>
+        <li><a href="#resume" class="nav-link scrollto" id="resume-link"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+        <li><a href="#" class="nav-link" id="portfolio-link"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content container -->
+  <div id="main-container">
+    <div id="home-content">
+      <main id="main">
+        <!-- About Section -->
+        <section id="about" class="about">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>About me</h2>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 d-flex justify-content-center">
+                <img src="assets/img/newprofileimg.jpeg" class="rounded-3" width="300" height="400" alt="Profile Image">
+              </div>
+              <div class="col-lg-8 pt-4 pt-lg-0 content">
+                <h3>Faishal Nizaar Rizq</h3>
+                <p class="fst-italic">
+                  Fresh Graduate S1 Sistem Informasi dengan minat pada Web Development.
+                </p>
+                <div class="row mt-3">
+                  <div class="col-lg-6">
+                    <ul>
+                      <li><i class="bi bi-chevron-right"></i> <strong>Alamat :</strong> <span>Ciamis, Jawa Barat</span></li>
+                      <li><i class="bi bi-chevron-right"></i> <strong>GitHub :</strong> <span><a href="https://github.com/rfaishalnr" target="_blank">github.com/rfaishalnr</a></span></li>
+                      <li><i class="bi bi-chevron-right"></i> <strong>LinkedIn :</strong> <span><a href="https://linkedin.com/in/faishal-nizaar-rizq" target="_blank">Faishal Nizaar Rizq</a></span></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-6">
+                    <ul>
+                      <li><i class="bi bi-chevron-right"></i> <strong>Universitas :</strong> <span>Siliwangi</span></li>
+                      <li><i class="bi bi-chevron-right"></i> <strong>No HP :</strong> <span>+62 823 2068 8672</span></li>
+                      <li><i class="bi bi-chevron-right"></i> <strong>Email :</strong> <span>rizqfaishalnizaar@gmail.com</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section-bg">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>Skills</h2>
+              <p>Teknologi dan bahasa pemrograman yang saya gunakan dalam pengembangan aplikasi web modern.</p>
+            </div>
+            <div class="row skills-content">
+              <div class="col-lg-6">
+                <div class="skill-item">
+                  <span class="skill-name">PHP & Laravel</span>
+                  <span class="level advanced">Advanced</span>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">MySQL</span>
+                  <span class="level advanced">Advanced</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="skill-item">
+                  <span class="skill-name">HTML, CSS, Tailwind CSS</span>
+                  <span class="level intermediate">Intermediate</span>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">Git & GitHub</span>
+                  <span class="level intermediate">Intermediate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="resume">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>Resume</h2>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="resume-title">Ringkasan</h3>
+                <div class="resume-item pb-0">
+                  <p>Fresh Graduate S1 Sistem Informasi yang berdedikasi membangun aplikasi web modern dan efisien. Menguasai pengembangan menggunakan PHP, Laravel, Filament, MySQL, dan Git.</p>
+                </div>
+                <h3 class="resume-title">Riwayat Pendidikan</h3>
+                <div class="resume-item">
+                  <h4>S1 Sistem Informasi</h4>
+                  <h5>2022 - 2026</h5>
+                  <p><em>Universitas Siliwangi, Tasikmalaya</em></p>
+                  <p>Lulus dengan predikat Cumlaude (IPK: 3.80). Aktif mengembangkan berbagai proyek berbasis web untuk tugas dan praktikum.</p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h3 class="resume-title">Pengalaman Kerja</h3>
+                <div class="resume-item">
+                  <h4>Software Engineer Intern</h4>
+                  <h5>Jun 2025 - Aug 2025</h5>
+                  <p><em>PT Telkom Akses, Tasikmalaya</em></p>
+                  <ul>
+                    <li>Mengembangkan PATA (Pengelolaan Tagihan Mitra), sistem manajemen tagihan berbasis web menggunakan Laravel.</li>
+                    <li>Membangun formulir dinamis dengan validasi untuk meminimalkan kesalahan input data.</li>
+                    <li>Menyederhanakan alur kerja pengajuan tagihan antara mitra dan tim internal.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Portfolio content section -->
+    <div id="portfolio-content" class="fade-in">
+      <div class="container mt-5">
+        <header class="portfolio-header rounded-3 mb-5">
+          <h1 class="fade-in"><strong>PORTOFOLIO</strong></h1>
+          <p class="fade-in">Kumpulan *project* website dan aplikasi yang telah saya kembangkan.</p>
+        </header>
+
+        <section class="py-4">
+          <div class="row gy-4">
+            
+            <!-- Project 1 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="portfolio-item fade-in" style="animation-delay: 0.1s;">
+                <div class="portfolio-image-container">
+                  <img src="assets/img/portfolio/pataweb.png" alt="PATA Website" class="portfolio-image" onclick="openZoom(this.src, 'PATA (Pengelolaan Tagihan Mitra)')">
+                </div>
+                <div class="portfolio-description">
+                  <h4>PATA (Pengelolaan Tagihan Mitra)</h4>
+                  <p>Sistem manajemen tagihan mitra berbasis web yang dikembangkan untuk PT Telkom Akses guna meminimalkan kesalahan dokumen tagihan. Dilengkapi formulir dinamis dan aturan validasi.</p>
+                  <div class="portfolio-tags">
+                    <span class="portfolio-tag">Laravel</span>
+                    <span class="portfolio-tag">PHP</span>
+                    <span class="portfolio-tag">MySQL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="portfolio-item fade-in" style="animation-delay: 0.2s;">
+                <div class="portfolio-image-container">
+                  <img src="assets/img/portfolio/pesanmakanweb.png" alt="PesanMakan SaaS" class="portfolio-image" onclick="openZoom(this.src, 'PesanMakan - SaaS E-Menu')">
+                </div>
+                <div class="portfolio-description">
+                  <h4>PesanMakan (SaaS E-Menu)</h4>
+                  <p>Pengembangan platform SaaS multi-tenant untuk manajemen restoran. Dilengkapi fitur pemesanan mandiri via QR Code meja, pelacakan status dapur, serta integrasi payment gateway Midtrans.</p>
+                  <div class="portfolio-tags">
+                    <span class="portfolio-tag">Laravel 12</span>
+                    <span class="portfolio-tag">Tailwind CSS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="col-lg-4 col-md-6">
+              <div class="portfolio-item fade-in" style="animation-delay: 0.3s;">
+                <div class="portfolio-image-container">
+                  <img src="assets/img/portfolio/webcigalontang.png" alt="Profil Desa Cigalontang" class="portfolio-image" onclick="openZoom(this.src, 'Profil Desa Cigalontang')">
+                </div>
+                <div class="portfolio-description">
+                  <h4>Profil Desa Cigalontang</h4>
+                  <p>Pengembangan website informasi publik untuk menampilkan profil, potensi, dan kegiatan desa. Website ini dibuat pada saat pelaksanaan program Kuliah Kerja Nyata (KKN).</p>
+                  <div class="portfolio-tags">
+                    <span class="portfolio-tag">Web Profile</span>
+                    <span class="portfolio-tag">Informasi Publik</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    <div id="zoomModal" class="zoom-modal">
+      <span class="close-zoom" onclick="closeZoom()">&times;</span>
+      <img id="zoomImage" class="zoom-content" alt="Zoomed image">
+      <div id="captionText" style="text-align: center; color: white; padding: 10px; font-size: 18px;"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Faishal Nizaar Rizq</h3>
+      <p>Sistem Informasi - Universitas Siliwangi</p>
+      <div class="social-links">
+        <a href="https://github.com/rfaishalnr" class="github" target="_blank" aria-label="GitHub"><i class="bx bxl-github"></i></a>
+        <a href="https://linkedin.com/in/faishal-nizaar-rizq" class="linkedin" target="_blank" aria-label="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        Faishal Nizaar Rizq.
+      </div>
+    </div>
+  </footer>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Custom SPA Navigation Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click event to portfolio link
+      document.getElementById('portfolio-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        showPortfolioContent();
+      });
+      
+      // Add click events to navigation links to ensure proper navigation
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (document.getElementById('portfolio-content').style.display === 'block' && 
+              this.id !== 'portfolio-link') {
+            e.preventDefault();
+            backToHome();
+            
+            // After returning to home, scroll to appropriate section
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+              setTimeout(() => {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                  window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                  });
+                }
+              }, 100);
+            }
+          }
+        });
+      });
+      
+      // Initialize zoom modal functionality
+      setupZoomModal();
+    });
+
+    function showPortfolioContent() {
+      // Hide home content and show portfolio content
+      document.getElementById('home-content').style.display = 'none';
+      document.getElementById('portfolio-content').style.display = 'block';
+
+      // Update active nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.getElementById('portfolio-link').classList.add('active');
+
+      // Scroll to top when showing portfolio
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Close mobile navbar if active
+      let body = document.querySelector("body");
+      let navbarToggle = document.querySelector(".mobile-nav-toggle");
+      if (body.classList.contains("mobile-nav-active")) {
+        body.classList.remove("mobile-nav-active");
+        navbarToggle.classList.toggle("bi-list");
+        navbarToggle.classList.toggle("bi-x");
+      }
+    }
+
+    function backToHome() {
+      // Hide portfolio content and show home content
+      document.getElementById('portfolio-content').style.display = 'none';
+      document.getElementById('home-content').style.display = 'block';
+      
+      // Update active nav link to home
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.getElementById('about-link').classList.add('active');
+      
+      // Scroll to top when returning to home
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Zoom Modal Functions
+    function setupZoomModal() {
+      const modal = document.getElementById('zoomModal');
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeZoom();
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+          closeZoom();
+        }
+      });
+    }
+    
+    function openZoom(imgSrc, caption) {
+      const modal = document.getElementById('zoomModal');
+      const modalImg = document.getElementById('zoomImage');
+      const captionText = document.getElementById('captionText');
+      modal.style.display = 'block';
+      modalImg.src = imgSrc;
+      captionText.innerHTML = caption;
+    }
+    
+    function closeZoom() {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
