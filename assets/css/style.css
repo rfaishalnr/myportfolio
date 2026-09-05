@@ -1228,3 +1228,160 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+/*--------------------------------------------------------------
+# PDF Export Custom Template Styles
+--------------------------------------------------------------*/
+#pdf-template {
+  background-color: #fff;
+  color: #333;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+}
+
+.pdf-page {
+  padding: 40px 50px;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+/* Page 1: Profile */
+.pdf-profile-page {
+  display: block;
+}
+
+.pdf-header {
+  border-bottom: 3px solid #0563bb;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.pdf-header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.pdf-profile-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #f0f0f0;
+}
+
+.pdf-header-text h1 {
+  color: #0563bb;
+  font-size: 38px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.pdf-header-text h2 {
+  color: #555;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 15px 0;
+}
+
+.pdf-contact {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  gap: 15px;
+}
+
+.pdf-body {
+  display: block;
+}
+
+.pdf-section {
+  margin-bottom: 25px;
+}
+
+.pdf-section-title {
+  color: #0563bb;
+  font-size: 22px;
+  font-weight: 600;
+  border-left: 4px solid #0563bb;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+
+.pdf-section p, .pdf-section li {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.pdf-skills-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.pdf-experience h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* Pages 2+: Portfolio Projects */
+.pdf-project-header {
+  margin-bottom: 25px;
+}
+
+.pdf-project-header h2 {
+  color: #0563bb;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.pdf-project-header p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.pdf-tags {
+  display: flex;
+  gap: 10px;
+}
+
+.pdf-tags span {
+  background-color: #e6f0fa;
+  color: #0563bb;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pdf-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pdf-gallery-grid img {
+  width: 100%;
+  height: 380px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+}
+ / *   P r e v e n t   P D F   p a g e   b r e a k s   * / 
+ . p d f - s e c t i o n ,   . p d f - e x p e r i e n c e ,   . p d f - p a g e   h 3 ,   . p d f - p r o j e c t - h e a d e r ,   . p d f - g a l l e r y - g r i d   i m g   { 
+     p a g e - b r e a k - i n s i d e :   a v o i d ; 
+     b r e a k - i n s i d e :   a v o i d ; 
+ }  
+ 

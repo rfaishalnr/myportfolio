@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Faishal Nizaar Rizq - Web Developer Portfolio</title>
+  <title>Faishal Nizaar Rizq - IT Professional Portfolio</title>
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -378,6 +378,91 @@
         transform: translateY(0);
       }
     }
+
+    /* PDF Export Styles */
+    .pdf-export-active {
+      background: #fff !important;
+    }
+    .pdf-export-active #portfolio-content {
+      display: block !important;
+      opacity: 1 !important;
+    }
+    .pdf-export-active .mobile-nav-toggle, 
+    .pdf-export-active .back-to-top,
+    .pdf-export-active .download-btn-container,
+    .pdf-export-active #header {
+      display: none !important;
+    }
+    .pdf-export-active #main-container {
+      margin-left: 0 !important;
+    }
+    
+    /* Page break rules for PDF */
+    .about, .skills, .resume, .portfolio-item, .resume-item {
+      page-break-inside: avoid;
+    }
+    .section-title {
+      page-break-after: avoid;
+    }
+    
+    /* Shared PDF Template Styles (For both html2pdf and window.print) */
+    #pdf-template {
+      width: 297mm;
+      margin: 0;
+      padding: 0;
+      background: white;
+    }
+    
+    .pdf-page {
+      width: 297mm;
+      height: 210mm;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      box-sizing: border-box;
+      position: relative;
+      background: white; /* Ensure a white background explicitly */
+    }
+
+    .pdf-page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    /* Print Styles for PDF */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+      
+      body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: white !important;
+      }
+
+      /* Hide all direct children of body EXCEPT pdf-template */
+      body > * {
+        display: none !important;
+      }
+
+      /* Force show the PDF template */
+      body > #pdf-template {
+        display: block !important;
+        position: relative !important;
+        width: 297mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
   </style>
 </head>
 
@@ -397,21 +482,20 @@
             <span>Skills</span></a></li>
         <li><a href="#resume" class="nav-link scrollto" id="resume-link"><i class="bx bx-file-blank"></i>
             <span>Resume</span></a></li>
-        <li><a href="#" class="nav-link" id="portfolio-link"><i class="bx bx-book-content"></i>
+        <li><a href="#certificates" class="nav-link scrollto" id="certificates-link"><i class="bx bx-award"></i>
+            <span>Sertifikat</span></a></li>
+        <li><a href="#portfolio" class="nav-link scrollto" id="portfolio-link"><i class="bx bx-book-content"></i>
             <span>Portfolio</span></a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Main content container -->
-  <div id="main-container">
-    <div id="home-content">
-
-      <!-- HERO SECTION -->
+  <main id="main">
       <!-- <section id="hero">
         <div class="container" data-aos="zoom-in" data-aos-delay="100">
           <h1>Faishal Nizaar Rizq</h1>
-          <p>Web Developer & Information Systems</p>
+          <p>Information Systems Graduate & IT Professional</p>
           <div class="mt-4">
             <a href="#about" class="hero-btn scrollto">Tentang Saya</a>
             <a href="#" id="hero-btn-portfolio" class="hero-btn hero-btn-outline">Lihat Portofolio</a>
@@ -433,11 +517,23 @@
               </div>
               <div class="col-lg-8 pt-4 pt-lg-0 content">
                 <h3 class="mb-3">Web Developer & IT Support.</h3>
-                <p class="fst-italic mb-4 text-muted">
-                  Fresh Graduate S1 Sistem Informasi dengan pengalaman dalam pengembangan aplikasi web dan dukungan
-                  teknis. Memiliki kemampuan PHP, Laravel, MySQL, JavaScript, Windows, dan Microsoft Office, serta
-                  pengalaman troubleshooting hardware dan software.
+                <p class="fst-italic mb-4 text-muted just 
+              ">
+                  Fresh Graduate S1 Sistem Informasi Universitas Siliwangi dengan IPK 3,81. 
+                  Memiliki pengalaman kerja di PT Telkom Akses Tasikmalaya pada perancangan 
+                  website dan operasional perusahaan, mencakup monitoring progres proyek berkala, 
+                  validasi dokumen, pendampingan uji terima jaringan lapangan. Berpengalaman dalam 
+                  pengembangan aplikasi web, perancangan database, dan pemeliharaan sistem komputer. 
+                  Terampil menggunakan PHP, Laravel, MySQL, JavaScript, HTML/CSS, Git, Windows OS, 
+                  dan Microsoft Office untuk mendukung efisiensi operasional perusahaan. 
+                  Berpengalaman dalam manajemen data administrasi, penyusunan dokumentasi teknis, serta memiliki 
+                  koordinasi tim dan komunikasi profesional yang baik.
                 </p>
+                <!-- <div class="mb-4 download-btn-container">
+                  <button id="download-pdf-btn" class="btn btn-primary shadow-sm" style="border-radius: 50px; padding: 10px 25px; font-weight: 600;">
+                    <i class="bi bi-file-earmark-pdf me-2"></i> Unduh Portofolio (PDF)
+                  </button>
+                </div> -->
                 <div class="row mt-4">
                   <div class="col-lg-6">
                     <ul>
@@ -476,19 +572,23 @@
             </div>
             <div class="row skills-content">
               <div class="col-lg-6">
-                <div class="skill-item">
-                  <span class="skill-name">Web Development (HTML, CSS, JS, PHP, Laravel)</span>
+                <div class="skill-item d-flex flex-column align-items-start">
+                  <span class="skill-name text-primary">Web Development</span>
+                  <span class="text-muted small mt-1">HTML, CSS, Tailwind CSS, JavaScript, PHP, Laravel</span>
                 </div>
-                <div class="skill-item">
-                  <span class="skill-name">Database (MySQL)</span>
+                <div class="skill-item d-flex flex-column align-items-start">
+                  <span class="skill-name text-primary">Database</span>
+                  <span class="text-muted small mt-1">MySQL</span>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="skill-item">
-                  <span class="skill-name">IT Support & Troubleshooting</span>
+                <div class="skill-item d-flex flex-column align-items-start">
+                  <span class="skill-name text-primary">IT Support & Troubleshooting</span>
+                  <span class="text-muted small mt-1">Hardware Troubleshooting, Software Troubleshooting, Windows, Computer Maintenance</span>
                 </div>
-                <div class="skill-item">
-                  <span class="skill-name">Productivity & Tools (Office, Git, XAMPP)</span>
+                <div class="skill-item d-flex flex-column align-items-start">
+                  <span class="skill-name text-primary">Productivity & Tools</span>
+                  <span class="text-muted small mt-1">Microsoft Office, Git, GitHub, XAMPP</span>
                 </div>
               </div>
             </div>
@@ -503,55 +603,146 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <h3 class="resume-title">Ringkasan</h3>
-                <div class="resume-item pb-0">
-                  <p>Fresh Graduate S1 Sistem Informasi dengan pengalaman dalam pengembangan aplikasi web dan dukungan
-                    teknis. Memiliki kemampuan analisis masalah, adaptasi teknologi, dan ketertarikan utama pada Web
-                    Development serta terbuka terhadap peran IT Support dan IT Staff.</p>
-                </div>
+                
                 <h3 class="resume-title">Riwayat Pendidikan</h3>
                 <div class="resume-item">
                   <h4>S1 Sistem Informasi</h4>
-                  <h5>2022 - 2026</h5>
-                  <p><em>Universitas Siliwangi, Tasikmalaya</em></p>
-                  <p>Lulus dengan predikat Cumlaude (IPK: 3.81). Aktif mengembangkan berbagai proyek berbasis web untuk
-                    tugas dan praktikum pengembangan perangkat lunak.</p>
+                  <h5>2022 - 2026 | IPK: 3.81</h5>
+                  <p><em>Universitas Siliwangi</em></p>
                 </div>
+
+                <h3 class="resume-title">Sertifikat (Certificates)</h3>
+                <div class="resume-item pb-0">
+                  <ul>
+                    <li>SQL (Basic) - HackerRank (Sep 2026)</li>
+                    <li>Certificate of Completion : Laravel - Cursa (Aug 2026)</li>
+                    <li>Fullstack Laravel 12 & Vue 3: Bangun Aplikasi Forum Modern - BuildWithAngga (Jun 2026)</li>
+                    <li>SaaS Menu Digital Multi-Toko Laravel 12 Bonus Source Code - BuildWithAngga (Jun 2026)</li>
+                    <li>Certificate of Internship (Divisi Konstruksi) - PT. Telkom Akses Tasikmalaya (Aug 2025)</li>
+                  </ul>
+                </div>
+
               </div>
               <div class="col-lg-6">
                 <h3 class="resume-title">Pengalaman Kerja</h3>
                 <div class="resume-item">
                   <h4>IT & Operation Support Intern</h4>
                   <h5>Agustus 2025</h5>
-                  <p><em>PT Telkom Akses (Divisi Konstruksi), Tasikmalaya</em></p>
+                  <p><em>PT Telkom Akses Tasikmalaya (Divisi Konstruksi)</em></p>
                   <ul>
-                    <li>Memberikan dukungan teknis harian bagi staf divisi melalui troubleshooting perangkat keras,
-                      instalasi software, dan pemeliharaan PC kerja.</li>
-                    <li>Mengembangkan sistem web PATA (Laravel & MySQL) untuk digitalisasi alur administrasi dan
-                      meminimalisir kesalahan dokumen tagihan mitra.</li>
-                    <li>Mengelola dan merekonsiliasi data administrasi laporan konstruksi jaringan telekomunikasi kabel
-                      fiber optic.</li>
+                    <li>Melakukan perancangan website dan operasional perusahaan, mencakup monitoring progres proyek berkala, validasi dokumen, pendampingan uji terima jaringan lapangan.</li>
+                    <li>Mendukung efisiensi operasional perusahaan melalui manajemen data administrasi dan penyusunan dokumentasi teknis.</li>
+                  </ul>
+                </div>
+
+                <h3 class="resume-title">Bahasa (Languages)</h3>
+                <div class="resume-item pb-0">
+                  <ul>
+                    <li>Indonesia (Native)</li>
+                    <li>English (Intermediate)</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      </main>
-    </div>
 
-    <!-- Portfolio content section -->
-    <div id="portfolio-content" class="fade-in">
-      <div class="container mt-5">
+        <!-- Certificates Section -->
+        <section id="certificates" class="certificates" style="padding: 60px 0; background: #f8f9fa;">
+          <style>
+            .cert-card:hover { transform: translateY(-10px) !important; box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important; }
+            .cert-card a.btn:hover { background-color: #0563bb !important; color: #fff !important; }
+          </style>
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>Sertifikat</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+              
+              <!-- Cert 1 -->
+              <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="cert-card" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; height: 100%; transition: 0.3s; border-bottom: 4px solid #0563bb; display: flex; flex-direction: column;">
+                  <a href="assets/img/sertif/sql_basic certificate.jpg" data-gallery="portfolioGalleryCerts" class="glightbox" title="SQL Basic Certificate">
+                    <img src="assets/img/sertif/sql_basic certificate.jpg" width="100%" height="220px" style="object-fit: contain; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eaeaea;" alt="SQL Basic Certificate" />
+                  </a>
+                  <h4 style="font-size: 17px; font-weight: 700; color: #333; margin-bottom: 5px;">SQL (Basic)</h4>
+                  <p style="font-size: 13px; color: #0563bb; font-weight: 600; margin-bottom: 10px;">HackerRank (Sep 2026)</p>
+                  <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Sertifikasi yang memvalidasi keahlian dasar dalam menulis query SQL dan manipulasi database relasional.</p>
+                  <div style="font-size: 12px; color: #888; margin-top: auto; border-top: 1px solid #eee; padding-top: 12px;">
+                    <strong>Penerbit:</strong> HackerRank
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Cert 2 -->
+              <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                <div class="cert-card" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; height: 100%; transition: 0.3s; border-bottom: 4px solid #0563bb; display: flex; flex-direction: column;">
+                  <a href="assets/img/sertif/cursa_certificate.jpg" data-gallery="portfolioGalleryCerts" class="glightbox" title="Laravel Certificate">
+                    <img src="assets/img/sertif/cursa_certificate.jpg" width="100%" height="220px" style="object-fit: contain; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eaeaea;" />
+                  </a>
+                  <h4 style="font-size: 17px; font-weight: 700; color: #333; margin-bottom: 5px;">Certificate of Completion : Laravel</h4>
+                  <p style="font-size: 13px; color: #0563bb; font-weight: 600; margin-bottom: 10px;">Cursa (Aug 2026)</p>
+                  <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Penyelesaian kursus komprehensif mengenai framework PHP Laravel untuk pengembangan web tingkat lanjut.</p>
+                  <div style="font-size: 12px; color: #888; margin-top: auto; border-top: 1px solid #eee; padding-top: 12px;">
+                    <strong>Penerbit:</strong> Cursa
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Cert 3 -->
+              <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                <div class="cert-card" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; height: 100%; transition: 0.3s; border-bottom: 4px solid #0563bb; display: flex; flex-direction: column;">
+                  <a href="assets/img/sertif/fullstack-laravel-12-vue-3-bangun-aplikasi-forum-modern-faishal-nizaar-rizq.jpg" data-gallery="portfolioGalleryCerts" class="glightbox" title="Fullstack Laravel 12 & Vue 3">
+                    <img src="assets/img/sertif/fullstack-laravel-12-vue-3-bangun-aplikasi-forum-modern-faishal-nizaar-rizq.jpg" width="100%" height="220px" style="object-fit: contain; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eaeaea;" alt="Laravel 12 & Vue 3 Certificate" />
+                  </a>
+                  <h4 style="font-size: 17px; font-weight: 700; color: #333; margin-bottom: 5px;">Fullstack Laravel 12 & Vue 3</h4>
+                  <p style="font-size: 13px; color: #0563bb; font-weight: 600; margin-bottom: 10px;">BuildWithAngga (Jun 2026)</p>
+                  <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Sertifikasi keahlian membangun aplikasi forum modern dengan arsitektur SPA menggunakan Vue 3 dan Laravel 12.</p>
+                  <div style="font-size: 12px; color: #888; margin-top: auto; border-top: 1px solid #eee; padding-top: 12px;">
+                    <strong>Penerbit:</strong> BuildWithAngga
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Cert 4 -->
+              <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                <div class="cert-card" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; height: 100%; transition: 0.3s; border-bottom: 4px solid #0563bb; display: flex; flex-direction: column;">
+                  <a href="assets/img/sertif/saas-menu-digital-multi-toko-laravel-12-bonus-source-code-faishal-nizaar-rizq.jpg" data-gallery="portfolioGalleryCerts" class="glightbox" title="SaaS Menu Digital Multi-Toko">
+                    <img src="assets/img/sertif/saas-menu-digital-multi-toko-laravel-12-bonus-source-code-faishal-nizaar-rizq.jpg" width="100%" height="220px" style="object-fit: contain; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eaeaea;" alt="SaaS Laravel Certificate" />
+                  </a>
+                  <h4 style="font-size: 17px; font-weight: 700; color: #333; margin-bottom: 5px;">SaaS Menu Digital Multi-Toko</h4>
+                  <p style="font-size: 13px; color: #0563bb; font-weight: 600; margin-bottom: 10px;">BuildWithAngga (Jun 2026)</p>
+                  <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Pengembangan platform SaaS point-of-sales & QR order untuk multi-tenant (banyak restoran) menggunakan ekosistem Laravel.</p>
+                  <div style="font-size: 12px; color: #888; margin-top: auto; border-top: 1px solid #eee; padding-top: 12px;">
+                    <strong>Penerbit:</strong> BuildWithAngga
+                  </div>
+                </div>
+              </div>
 
-        <!-- Header Portofolio (Diperbarui dengan gradien modern) -->
-        <header class="portfolio-header shadow-sm mb-5 position-relative overflow-hidden"
-          style="border-radius: 20px; background: linear-gradient(135deg, #0563bb 0%, #0099ff 100%); padding: 50px 20px;">
-          <h1 class="fade-in text-white mb-2"
-            style="font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: 1px;">PORTFOLIO</h1>
-          <p class="fade-in text-white-50 mb-0" style="font-size: 1.05rem;">Kumpulan hasil karya, website, dan aplikasi
-            yang telah saya kembangkan.</p>
-        </header>
+              <!-- Cert 5 -->
+              <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
+                <div class="cert-card" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; height: 100%; transition: 0.3s; border-bottom: 4px solid #0563bb; display: flex; flex-direction: column;">
+                  <a href="assets/img/sertif/Certificate KP.jpg" data-gallery="portfolioGalleryCerts" class="glightbox" title="IT Support Internship">
+                    <img src="assets/img/sertif/Certificate KP.jpg" width="100%" height="220px" style="object-fit: contain; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eaeaea;" alt="Internship Certificate" />
+                  </a>
+                  <h4 style="font-size: 17px; font-weight: 700; color: #333; margin-bottom: 5px;">Sertifikat Magang (Internship)</h4>
+                  <p style="font-size: 13px; color: #0563bb; font-weight: 600; margin-bottom: 10px;">PT Telkom Akses (Aug 2025)</p>
+                  <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Pengalaman magang operasional industri pada Divisi Konstruksi dalam pengelolaan data, administrasi teknis, dan IT Support.</p>
+                  <div style="font-size: 12px; color: #888; margin-top: auto; border-top: 1px solid #eee; padding-top: 12px;">
+                    <strong>Kredensial:</strong> PT Telkom Akses Tasikmalaya
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio" style="padding: 60px 0; background: #fff;">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Portfolio</h2>
+          <p>Kumpulan hasil karya, website, dan aplikasi yang telah saya kembangkan.</p>
+        </div>
 
         <section class="py-4">
           <div class="row gy-5 align-items-stretch">
@@ -562,16 +753,23 @@
                 style="animation-delay: 0.1s; border-radius: 15px; border: 1px solid #f0f0f0;">
                 <div class="portfolio-image-container position-relative"
                   style="border-radius: 15px 15px 0 0; overflow: hidden;">
-                  <img src="assets/img/portfolio/pataweb.png" alt="PATA Website" class="portfolio-image w-100"
-                    style="height: 220px; object-fit: cover;"
-                    onclick="openZoom(this.src, 'PATA (Pengelolaan Tagihan Mitra)')">
+                  <a href="assets/img/portfolio/pataweb/pataweb.jpg" data-gallery="portfolioGalleryPata" class="glightbox" title="PATA (Pengelolaan Tagihan Mitra)">
+                    <img src="assets/img/portfolio/pataweb/pataweb.jpg" alt="PATA Website" class="portfolio-image w-100" style="height: 220px; object-fit: cover;">
+                  </a>
+                  <!-- Hidden images for slider -->
+                  <a href="assets/img/portfolio/pataweb/Halaman Input BOQ.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Halaman Kelola Waspang.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Halaman Status Pengajuan 1.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Halaman Status Pengajuan 2.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Laman Preview 1.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Laman Preview 2.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Laman Preview 3.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pataweb/Laman Tagihan - Buat Tagihan Page 1.jpg" data-gallery="portfolioGalleryPata" class="glightbox" style="display: none;"></a>
                 </div>
                 <div class="portfolio-description p-4 d-flex flex-column flex-grow-1">
                   <h4 style="color: #0563bb; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px;">PATA
-                    (Pengelolaan Tagihan Mitra)</h4>
-                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Sistem manajemen tagihan mitra
-                    berbasis web yang dikembangkan untuk PT Telkom Akses guna meminimalkan kesalahan dokumen tagihan.
-                    Dilengkapi formulir dinamis dan aturan validasi.</p>
+                    (Pengelolaan Tagihan Mitra) Website</h4>
+                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Sistem manajemen tagihan mitra berbasis web untuk PT Telkom Akses Tasikmalaya guna mengurangi kesalahan dokumen tagihan.</p>
 
                   <!-- Modern Tags -->
                   <div class="mb-4 mt-2">
@@ -603,15 +801,25 @@
                 style="animation-delay: 0.2s; border-radius: 15px; border: 1px solid #f0f0f0;">
                 <div class="portfolio-image-container position-relative"
                   style="border-radius: 15px 15px 0 0; overflow: hidden;">
-                  <img src="assets/img/portfolio/pesanmakanweb.png" alt="PesanMakan SaaS" class="portfolio-image w-100"
-                    style="height: 220px; object-fit: cover;" onclick="openZoom(this.src, 'PesanMakan - SaaS E-Menu')">
+                  <a href="assets/img/portfolio/pesanmakan/pesanmakanweb.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" title="PesanMakan - SaaS Digital Menu">
+                    <img src="assets/img/portfolio/pesanmakan/pesanmakanweb.jpg" alt="PesanMakan SaaS" class="portfolio-image w-100" style="height: 220px; object-fit: cover;">
+                  </a>
+                  <!-- Hidden images for slider -->
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 190948.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191000.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191011.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191021.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191035.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191043.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191053.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191100.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191108.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191130.jpg" data-gallery="portfolioGalleryPesan" class="glightbox" style="display: none;"></a>
                 </div>
                 <div class="portfolio-description p-4 d-flex flex-column flex-grow-1">
                   <h4 style="color: #0563bb; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px;">PesanMakan
-                    (SaaS Digital Menu & POS)</h4>
-                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Pengembangan aplikasi SaaS
-                    multi-tenant untuk manajemen restoran. Terintegrasi dengan pemesanan QR Code, pelacakan status
-                    real-time, sistem langganan, dan payment gateway Midtrans.</p>
+                    - Multi-Tenant Digital Menu & Cashier System</h4>
+                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Platform SaaS multi-tenant untuk manajemen restoran dengan QR Code Ordering, Midtrans Payment Gateway, dan real-time order tracking.</p>
 
                   <!-- Modern Tags -->
                   <div class="mb-4 mt-2">
@@ -621,6 +829,8 @@
                     <span
                       style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">Tailwind
                       CSS</span>
+                    <span
+                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">MySQL</span>
                   </div>
 
                   <!-- Modern Full-width Button -->
@@ -643,25 +853,30 @@
                 style="animation-delay: 0.3s; border-radius: 15px; border: 1px solid #f0f0f0;">
                 <div class="portfolio-image-container position-relative"
                   style="border-radius: 15px 15px 0 0; overflow: hidden;">
-                  <img src="assets/img/portfolio/webcigalontang.png" alt="Profil Desa Cigalontang"
-                    class="portfolio-image w-100" style="height: 220px; object-fit: cover;"
-                    onclick="openZoom(this.src, 'Profil Desa Cigalontang')">
+                  <a href="assets/img/portfolio/webcigalontang/webcigalontang.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" title="Profil Desa Wisata Cigalontang">
+                    <img src="assets/img/portfolio/webcigalontang/webcigalontang.jpg" alt="Profil Desa Cigalontang" class="portfolio-image w-100" style="height: 220px; object-fit: cover;">
+                  </a>
+                  <!-- Hidden images for slider -->
+                  <a href="assets/img/portfolio/webcigalontang/ngadendangrasa.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/webcigalontang/ngalanglang.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/webcigalontang/ngulak.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/webcigalontang/paketdesa.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/webcigalontang/potensidesa.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
+                  <a href="assets/img/portfolio/webcigalontang/serenmanis.jpg" data-gallery="portfolioGalleryDesa" class="glightbox" style="display: none;"></a>
                 </div>
                 <div class="portfolio-description p-4 d-flex flex-column flex-grow-1">
-                  <h4 style="color: #0563bb; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px;">Profil Desa
-                    Wisata Cigalontang</h4>
-                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Pengembangan website informasi publik
-                    dan promosi wisata desa (sejarah, UMKM, paket wisata) interaktif. Proyek ini dibangun sebagai
-                    kontribusi digital program KKN.</p>
+                  <h4 style="color: #0563bb; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px;">Website Profil
+                    Desa Wisata Cigalontang</h4>
+                  <p style="color: #6c757d; font-size: 0.9rem; line-height: 1.6;">Pengembangan website informasi publik untuk mempromosikan sejarah, potensi UMKM, dan katalog paket wisata desa. Proyek ini dikembangkan sebagai kontribusi digital pada program KKN.</p>
 
                   <!-- Modern Tags -->
                   <div class="mb-4 mt-2">
                     <span
-                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">Web
-                      Profile</span>
+                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">HTML/CSS</span>
                     <span
-                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">Informasi
-                      Publik</span>
+                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">Bootstrap</span>
+                    <span
+                      style="display: inline-block; background-color: #e6f0fa; color: #0563bb; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0 5px 8px 0;">JavaScript</span>
                   </div>
 
                   <!-- Modern Full-width Button -->
@@ -680,22 +895,179 @@
 
           </div>
         </section>
+          </div>
+        </section>
       </div>
+    </section>
+  </main>    <!-- Custom PDF Template (Hidden by default) -->
+    <div id="pdf-template" style="display: none;">
+
+      <!-- ===== PAGE 1: CV PROFILE (2-column, 297mm x 210mm) ===== -->
+      <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; display: flex; box-sizing: border-box;">
+
+        <!-- LEFT SIDEBAR: 98mm wide -->
+        <div style="width: 98mm; min-height: 210mm; background: #0563bb; color: #fff; padding: 10mm 7mm; box-sizing: border-box;">
+          <!-- Photo -->
+          <div style="text-align: center; margin-bottom: 5mm;">
+            <img src="assets/img/newprofileimg.jpeg" alt="Profile"
+              style="width: 28mm; height: 28mm; border-radius: 50%; object-fit: contain; border: 2px solid rgba(255,255,255,0.4);">
+          </div>
+          <!-- Name -->
+          <h1 style="font-size: 13pt; font-weight: 700; text-align: center; margin: 0 0 1mm 0; color: #fff;">Faishal Nizaar Rizq</h1>
+          <p style="font-size: 8pt; text-align: center; color: rgba(255,255,255,0.8); margin: 0 0 5mm 0;">Web Developer & IT Support</p>
+          <!-- Divider -->
+          <div style="height: 0.3mm; background: rgba(255,255,255,0.3); margin-bottom: 4mm;"></div>
+          <!-- Contact -->
+          <h3 style="font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5mm; color: rgba(255,255,255,0.6); margin: 0 0 3mm 0;">Kontak</h3>
+          <p style="font-size: 7.5pt; margin: 0 0 1.5mm 0; color: #fff;">&#9679; Ciamis, Jawa Barat</p>
+          <p style="font-size: 7.5pt; margin: 0 0 1.5mm 0; color: #fff;">&#9742; +62 823 2068 8672</p>
+          <p style="font-size: 7.5pt; margin: 0 0 1.5mm 0; color: #fff;">&#9993; rizqfaishalnizaar@gmail.com</p>
+          <p style="font-size: 7.5pt; margin: 0 0 1.5mm 0; color: #fff;">&#128279; github.com/rfaishalnr</p>
+          <p style="font-size: 7.5pt; margin: 0 0 4mm 0; color: #fff;">&#128279; linkedin.com/in/faishal-nizaar-rizq</p>
+          <!-- Divider -->
+          <div style="height: 0.3mm; background: rgba(255,255,255,0.3); margin-bottom: 4mm;"></div>
+          <!-- Skills -->
+          <h3 style="font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5mm; color: rgba(255,255,255,0.6); margin: 0 0 3mm 0;">Keahlian</h3>
+          <p style="font-size: 7.5pt; font-weight: 700; color: rgba(255,255,255,0.95); margin: 0 0 0.8mm 0;">Web Development</p>
+          <p style="font-size: 7pt; color: rgba(255,255,255,0.75); margin: 0 0 3mm 0;">PHP, Laravel, HTML, CSS, JavaScript, Tailwind</p>
+          <p style="font-size: 7.5pt; font-weight: 700; color: rgba(255,255,255,0.95); margin: 0 0 0.8mm 0;">Database</p>
+          <p style="font-size: 7pt; color: rgba(255,255,255,0.75); margin: 0 0 3mm 0;">MySQL</p>
+          <p style="font-size: 7.5pt; font-weight: 700; color: rgba(255,255,255,0.95); margin: 0 0 0.8mm 0;">IT Support & Troubleshooting</p>
+          <p style="font-size: 7pt; color: rgba(255,255,255,0.75); margin: 0 0 3mm 0;">Hardware, Software, Windows, Maintenance</p>
+          <p style="font-size: 7.5pt; font-weight: 700; color: rgba(255,255,255,0.95); margin: 0 0 0.8mm 0;">Tools</p>
+          <p style="font-size: 7pt; color: rgba(255,255,255,0.75); margin: 0 0 4mm 0;">Git, GitHub, XAMPP, MS Office</p>
+          <!-- Divider -->
+          <div style="height: 0.3mm; background: rgba(255,255,255,0.3); margin-bottom: 4mm;"></div>
+          <!-- Languages -->
+          <h3 style="font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5mm; color: rgba(255,255,255,0.6); margin: 0 0 3mm 0;">Bahasa</h3>
+          <p style="font-size: 7.5pt; color: #fff; margin: 0 0 1.5mm 0;"><span style="display:inline-block;background:rgba(255,255,255,0.2);padding:0.5mm 2mm;border-radius:1mm;font-size:6.5pt;font-weight:700;margin-right:1.5mm;">ID</span> Indonesia <span style="color: rgba(255,255,255,0.65);">(Native)</span></p>
+          <p style="font-size: 7.5pt; color: #fff; margin: 0;"><span style="display:inline-block;background:rgba(255,255,255,0.2);padding:0.5mm 2mm;border-radius:1mm;font-size:6.5pt;font-weight:700;margin-right:1.5mm;">EN</span> English <span style="color: rgba(255,255,255,0.65);">(Intermediate)</span></p>
+        </div>
+
+        <!-- RIGHT CONTENT: remaining width -->
+        <div style="flex: 1; padding: 10mm 9mm; box-sizing: border-box; color: #333; overflow: hidden;">
+          <!-- Profil -->
+          <h2 style="font-size: 8pt; font-weight: 700; color: #0563bb; border-left: 2mm solid #0563bb; padding-left: 2mm; margin: 0 0 2.5mm 0; text-transform: uppercase; letter-spacing: 0.3mm;">Profil</h2>
+          <p style="font-size: 7.5pt; line-height: 1.6; color: #444; margin: 0 0 5mm 0;">Fresh Graduate S1 Sistem Informasi Universitas Siliwangi (IPK 3,81). Berpengalaman dalam pengembangan aplikasi web dan IT Support melalui magang di PT Telkom Akses Tasikmalaya. Menguasai PHP, Laravel, MySQL, JavaScript, HTML/CSS, serta Microsoft Office dan Git.</p>
+          <!-- Pendidikan -->
+          <h2 style="font-size: 8pt; font-weight: 700; color: #0563bb; border-left: 2mm solid #0563bb; padding-left: 2mm; margin: 0 0 2.5mm 0; text-transform: uppercase; letter-spacing: 0.3mm;">Pendidikan</h2>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5mm;">
+            <div>
+              <p style="font-size: 8pt; font-weight: 700; margin: 0 0 0.5mm 0; color: #222;">S1 Sistem Informasi</p>
+              <p style="font-size: 7.5pt; color: #666; margin: 0;">Universitas Siliwangi</p>
+            </div>
+            <div style="text-align: right;">
+              <p style="font-size: 7.5pt; color: #0563bb; font-weight: 700; margin: 0 0 0.5mm 0;">2022 – 2026</p>
+              <p style="font-size: 7.5pt; color: #666; margin: 0;">IPK: 3.81</p>
+            </div>
+          </div>
+          <!-- Pengalaman -->
+          <h2 style="font-size: 8pt; font-weight: 700; color: #0563bb; border-left: 2mm solid #0563bb; padding-left: 2mm; margin: 0 0 2.5mm 0; text-transform: uppercase; letter-spacing: 0.3mm;">Pengalaman Kerja</h2>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1.5mm;">
+            <p style="font-size: 8pt; font-weight: 700; margin: 0; color: #222;">IT & Operation Support Intern</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 700; margin: 0;">Agustus 2025</p>
+          </div>
+          <p style="font-size: 7.5pt; color: #666; margin: 0 0 2mm 0; font-style: italic;">PT Telkom Akses Tasikmalaya (Divisi Konstruksi)</p>
+          <ul style="font-size: 7.5pt; color: #444; margin: 0 0 5mm 0; padding-left: 5mm; line-height: 1.6;">
+            <li>Monitoring progres proyek, validasi dokumen, dan pendampingan uji terima jaringan lapangan.</li>
+            <li>Manajemen data administrasi dan penyusunan dokumentasi teknis operasional perusahaan.</li>
+          </ul>
+          <!-- Sertifikat -->
+          <h2 style="font-size: 8pt; font-weight: 700; color: #0563bb; border-left: 2mm solid #0563bb; padding-left: 2mm; margin: 0 0 2.5mm 0; text-transform: uppercase; letter-spacing: 0.3mm;">Sertifikat</h2>
+          <ul style="font-size: 7.5pt; color: #444; margin: 0; padding-left: 5mm; line-height: 1.7;">
+            <li>SQL (Basic) – HackerRank (Sep 2026)</li>
+            <li>Certificate of Completion: Laravel – Cursa (Aug 2026)</li>
+            <li>Fullstack Laravel 12 & Vue 3: Bangun Aplikasi Forum Modern – BuildWithAngga (Jun 2026)</li>
+            <li>SaaS Menu Digital Multi-Toko Laravel 12 – BuildWithAngga (Jun 2026)</li>
+            <li>Certificate of Internship – PT. Telkom Akses Tasikmalaya (Aug 2025)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ===== PAGE 2: PORTFOLIO - PATA ===== -->
+      <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
+        <!-- Top bar -->
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5mm;">
+          <div style="flex: 1;">
+            <h2 style="font-size: 14pt; font-weight: 700; color: #0563bb; margin: 0 0 1.5mm 0;">1. PATA – Pengelolaan Tagihan Mitra</h2>
+            <p style="font-size: 8pt; color: #666; margin: 0; line-height: 1.5;">Sistem manajemen tagihan mitra berbasis web untuk PT Telkom Akses Tasikmalaya guna mengurangi kesalahan dokumen tagihan. Dilengkapi fitur monitoring status dan pengelolaan waspang.</p>
+          </div>
+          <div style="display: flex; gap: 2mm; flex-shrink: 0; margin-left: 5mm;">
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">Laravel</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">PHP</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">MySQL</span>
+          </div>
+        </div>
+        <!-- Images 2x2 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
+          <img src="assets/img/portfolio/pataweb/pataweb.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pataweb/Halaman Input BOQ.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pataweb/Laman Preview 1.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pataweb/Laman Tagihan - Buat Tagihan Page 1.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+        </div>
+        <!-- Bottom bar -->
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
+      </div>
+
+      <!-- ===== PAGE 3: PORTFOLIO - PesanMakan ===== -->
+      <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5mm;">
+          <div style="flex: 1;">
+            <h2 style="font-size: 14pt; font-weight: 700; color: #0563bb; margin: 0 0 1.5mm 0;">2. PesanMakan – Multi-Tenant Digital Menu</h2>
+            <p style="font-size: 8pt; color: #666; margin: 0; line-height: 1.5;">Platform SaaS multi-tenant untuk manajemen restoran dengan QR Code Ordering, Midtrans Payment Gateway, dan real-time order tracking berbasis Laravel 12.</p>
+          </div>
+          <div style="display: flex; gap: 2mm; flex-shrink: 0; margin-left: 5mm;">
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">Laravel 12</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">Tailwind CSS</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">MySQL</span>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
+          <img src="assets/img/portfolio/pesanmakan/pesanmakanweb.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191000.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191011.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191043.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+        </div>
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
+      </div>
+
+      <!-- ===== PAGE 4: PORTFOLIO - Desa Cigalontang ===== -->
+      <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5mm;">
+          <div style="flex: 1;">
+            <h2 style="font-size: 14pt; font-weight: 700; color: #0563bb; margin: 0 0 1.5mm 0;">3. Website Profil Desa Wisata Cigalontang</h2>
+            <p style="font-size: 8pt; color: #666; margin: 0; line-height: 1.5;">Website informasi publik untuk mempromosikan sejarah, potensi UMKM, dan katalog paket wisata desa sebagai kontribusi digital pada program KKN Universitas Siliwangi.</p>
+          </div>
+          <div style="display: flex; gap: 2mm; flex-shrink: 0; margin-left: 5mm;">
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">HTML/CSS</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">Bootstrap</span>
+            <span style="background: #e6f0fa; color: #0563bb; padding: 1mm 3mm; border-radius: 3mm; font-size: 7.5pt; font-weight: 700;">JavaScript</span>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
+          <img src="assets/img/portfolio/webcigalontang/webcigalontang.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/webcigalontang/paketdesa.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/webcigalontang/ngulak.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <img src="assets/img/portfolio/webcigalontang/potensidesa.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+        </div>
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
+      </div>
+
     </div>
 
-    <!-- Zoom Modal -->
-    <div id="zoomModal" class="zoom-modal">
-      <span class="close-zoom" onclick="closeZoom()">&times;</span>
-      <img id="zoomImage" class="zoom-content" alt="Zoomed image">
-      <div id="captionText" style="text-align: center; color: white; padding: 10px; font-size: 18px;"></div>
-    </div>
-  </div>
+
+
+
 
   <!-- Footer -->
   <footer id="footer">
     <div class="container">
       <h3>Faishal Nizaar Rizq</h3>
-      <p>Information Systems | Web Developer</p>
+      <p>Information Systems | IT Support</p>
       <div class="social-links">
         <a href="https://github.com/rfaishalnr" class="github" target="_blank" aria-label="GitHub"><i
             class="bx bxl-github"></i></a>
@@ -726,6 +1098,9 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!-- html2pdf.js for PDF Download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <!-- Custom SPA Navigation Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -744,117 +1119,45 @@
         });
       }
 
-      // Add click event to portfolio links (both navbar and hero button)
-      const portfolioTriggers = [document.getElementById('portfolio-link'), document.getElementById('hero-btn-portfolio')];
-
-      portfolioTriggers.forEach(trigger => {
-        if (trigger) {
-          trigger.addEventListener('click', function (e) {
-            e.preventDefault();
-            showPortfolioContent();
-          });
-        }
+      // Initialize GLightbox
+      const portfolioLightbox = GLightbox({
+        selector: '.glightbox'
       });
 
-      // Add click events to navigation links to ensure proper navigation
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function (e) {
-          if (document.getElementById('portfolio-content').style.display === 'block' &&
-            this.id !== 'portfolio-link') {
-            e.preventDefault();
-            backToHome(this.id);
-
-            // After returning to home, scroll to appropriate section
-            const targetId = this.getAttribute('href');
-            if (targetId && targetId !== '#') {
-              setTimeout(() => {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                  window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                  });
-                }
-              }, 100);
-            }
-          }
-        });
-      });
-
-      // Initialize zoom modal functionality
-      setupZoomModal();
+      // Initialize PDF Download functionality
+      setupPdfDownload();
     });
 
-    function showPortfolioContent() {
-      // Hide home content and show portfolio content
-      document.getElementById('home-content').style.display = 'none';
-      document.getElementById('portfolio-content').style.display = 'block';
+    function setupPdfDownload() {
+      const downloadBtn = document.getElementById('download-pdf-btn');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          // Change button state
+          const originalText = downloadBtn.innerHTML;
+          downloadBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Menyiapkan PDF...';
+          downloadBtn.disabled = true;
 
-      // Update active nav link
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-      });
-      document.getElementById('portfolio-link').classList.add('active');
+          // Force display block via JS before printing (safeguard)
+          const element = document.getElementById('pdf-template');
+          const oldDisplay = element.style.display;
+          element.style.display = 'block';
 
-      // Scroll to top when showing portfolio
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Close mobile navbar if active
-      let body = document.querySelector("body");
-      let navbarToggle = document.querySelector(".mobile-nav-toggle");
-      if (body.classList.contains("mobile-nav-active")) {
-        body.classList.remove("mobile-nav-active");
-        navbarToggle.classList.toggle("bi-list");
-        navbarToggle.classList.toggle("bi-x");
+          // Delay slightly so browser can reflow the DOM
+          setTimeout(() => {
+            // Gunakan print browser (hasil PDF native, text selectable, sangat rapi)
+            window.print();
+            
+            // Kembalikan state
+            element.style.display = oldDisplay;
+            downloadBtn.innerHTML = originalText;
+            downloadBtn.disabled = false;
+          }, 100);
+        });
       }
     }
 
-    function backToHome(activeLinkId) {
-      // Hide portfolio content and show home content
-      document.getElementById('portfolio-content').style.display = 'none';
-      document.getElementById('home-content').style.display = 'block';
-
-      // Update active nav link
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-      });
-      if (activeLinkId) {
-        document.getElementById(activeLinkId).classList.add('active');
-      } else {
-        document.getElementById('home-link').classList.add('active');
-      }
-
-      // Scroll to top when returning to home
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Zoom Modal Functions
-    function setupZoomModal() {
-      const modal = document.getElementById('zoomModal');
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) {
-          closeZoom();
-        }
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-          closeZoom();
-        }
-      });
-    }
-
-    function openZoom(imgSrc, caption) {
-      const modal = document.getElementById('zoomModal');
-      const modalImg = document.getElementById('zoomImage');
-      const captionText = document.getElementById('captionText');
-      modal.style.display = 'block';
-      modalImg.src = imgSrc;
-      captionText.innerHTML = caption;
-    }
-
-    function closeZoom() {
-      document.getElementById('zoomModal').style.display = 'none';
-    }
   </script>
 </body>
 
