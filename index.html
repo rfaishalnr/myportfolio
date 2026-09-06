@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Faishal Nizaar Rizq - IT Professional Portfolio</title>
+  <title>Faishal Nizaar Rizq - Portfolio</title>
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -417,16 +417,9 @@
       width: 297mm;
       height: 210mm;
       overflow: hidden;
-      page-break-after: always;
-      break-after: page;
       box-sizing: border-box;
       position: relative;
       background: white; /* Ensure a white background explicitly */
-    }
-
-    .pdf-page:last-child {
-      page-break-after: auto;
-      break-after: auto;
     }
 
     /* Print Styles for PDF */
@@ -492,18 +485,6 @@
 
   <!-- Main content container -->
   <main id="main">
-      <!-- <section id="hero">
-        <div class="container" data-aos="zoom-in" data-aos-delay="100">
-          <h1>Faishal Nizaar Rizq</h1>
-          <p>Information Systems Graduate & IT Professional</p>
-          <div class="mt-4">
-            <a href="#about" class="hero-btn scrollto">Tentang Saya</a>
-            <a href="#" id="hero-btn-portfolio" class="hero-btn hero-btn-outline">Lihat Portofolio</a>
-          </div>
-        </div>
-      </section> -->
-
-      <main id="main">
         <!-- About Section -->
         <section id="about" class="about">
           <div class="container" data-aos="fade-up">
@@ -529,11 +510,11 @@
                   Berpengalaman dalam manajemen data administrasi, penyusunan dokumentasi teknis, serta memiliki 
                   koordinasi tim dan komunikasi profesional yang baik.
                 </p>
-                <!-- <div class="mb-4 download-btn-container">
+                <div class="mb-4 download-btn-container">
                   <button id="download-pdf-btn" class="btn btn-primary shadow-sm" style="border-radius: 50px; padding: 10px 25px; font-weight: 600;">
                     <i class="bi bi-file-earmark-pdf me-2"></i> Unduh Portofolio (PDF)
                   </button>
-                </div> -->
+                </div>
                 <div class="row mt-4">
                   <div class="col-lg-6">
                     <ul>
@@ -895,11 +876,11 @@
 
           </div>
         </section>
-          </div>
-        </section>
       </div>
     </section>
-  </main>    <!-- Custom PDF Template (Hidden by default) -->
+  </main>
+
+  <!-- Custom PDF Template (Hidden by default) -->
     <div id="pdf-template" style="display: none;">
 
       <!-- ===== PAGE 1: CV PROFILE (2-column, 297mm x 210mm) ===== -->
@@ -1098,8 +1079,9 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- html2pdf.js for PDF Download -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- html2canvas + jsPDF for PDF Download (per-page rendering = no blank pages) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <!-- Custom SPA Navigation Script -->
   <script>
@@ -1130,32 +1112,56 @@
 
     function setupPdfDownload() {
       const downloadBtn = document.getElementById('download-pdf-btn');
-      if (downloadBtn) {
-        downloadBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          // Change button state
-          const originalText = downloadBtn.innerHTML;
-          downloadBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Menyiapkan PDF...';
-          downloadBtn.disabled = true;
+      if (!downloadBtn) return;
 
-          // Force display block via JS before printing (safeguard)
-          const element = document.getElementById('pdf-template');
-          const oldDisplay = element.style.display;
-          element.style.display = 'block';
+      const pdfTemplate = document.getElementById('pdf-template');
+      if (!pdfTemplate) return;
 
-          // Delay slightly so browser can reflow the DOM
-          setTimeout(() => {
-            // Gunakan print browser (hasil PDF native, text selectable, sangat rapi)
-            window.print();
-            
-            // Kembalikan state
-            element.style.display = oldDisplay;
-            downloadBtn.innerHTML = originalText;
-            downloadBtn.disabled = false;
-          }, 100);
-        });
-      }
+      const originalBtnText = downloadBtn.innerHTML;
+
+      downloadBtn.addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        downloadBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Menyiapkan PDF...';
+        downloadBtn.disabled = true;
+
+        // Show template so html2canvas can see it
+        pdfTemplate.style.display = 'block';
+
+        // Wait for reflow
+        await new Promise(r => setTimeout(r, 200));
+
+        try {
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'landscape' });
+          const pages = Array.from(pdfTemplate.querySelectorAll('.pdf-page'));
+
+          for (let i = 0; i < pages.length; i++) {
+            if (i > 0) pdf.addPage();
+
+            const canvas = await html2canvas(pages[i], {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              width:  pages[i].offsetWidth,
+              height: pages[i].offsetHeight
+            });
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.98);
+            pdf.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+          }
+
+          pdf.save('Faishal Nizaar Rizq - Portfolio.pdf');
+
+        } catch (err) {
+          console.error('PDF error:', err);
+          alert('Gagal membuat PDF. Silakan coba lagi.');
+        }
+
+        pdfTemplate.style.display = 'none';
+        downloadBtn.innerHTML = originalBtnText;
+        downloadBtn.disabled = false;
+      });
     }
 
   </script>
