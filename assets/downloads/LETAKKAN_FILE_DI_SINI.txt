@@ -1,0 +1,5 @@
+Letakkan file berikut di folder ini:
+- Faishal Nizaar Rizq - Portfolio.pdf
+- Faishal Nizaar Rizq - Portfolio.pptx
+
+Generate file menggunakan generate.html, buka di browser lalu klik tombol generate.

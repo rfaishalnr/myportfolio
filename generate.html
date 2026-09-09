@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Portfolio - ADMIN ONLY</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Open Sans", Arial, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+    .admin-ui { max-width: 700px; margin: 0 auto; padding: 40px 24px; }
+    .admin-ui h1 { font-size: 24px; font-weight: 700; color: #60a5fa; margin-bottom: 8px; }
+    .admin-ui p.subtitle { font-size: 14px; color: #94a3b8; margin-bottom: 32px; line-height: 1.6; }
+    .steps { background: #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 32px; border: 1px solid #334155; }
+    .steps h2 { font-size: 14px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .steps ol { padding-left: 20px; }
+    .steps li { font-size: 14px; color: #cbd5e1; line-height: 1.8; }
+    .steps code { background: #0f172a; color: #34d399; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+    .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 50px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-pdf { background: #0563bb; color: #fff; }
+    .btn-pdf:hover { background: #0447a3; }
+    .btn-ppt { background: #d97706; color: #fff; }
+    .btn-ppt:hover { background: #b45309; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .status { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 16px 20px; font-size: 13px; color: #94a3b8; min-height: 60px; display: flex; align-items: center; gap: 10px; }
+    .status.generating { border-color: #0563bb; color: #60a5fa; }
+    .status.done { border-color: #16a34a; color: #4ade80; }
+    .status.error { border-color: #dc2626; color: #f87171; }
+    #pdf-template { display: none; position: fixed; left: -99999px; top: 0; background: white; }
+    .pdf-page { width: 297mm; height: 210mm; overflow: hidden; box-sizing: border-box; background: white; }
+    .img-box { position: relative; overflow: hidden; background: #f8f9fa; display: flex; align-items: center; justify-content: center; }
+    .img-box img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+  </style>
+</head>
+<body>
+<div class="admin-ui">
+  <h1>Generator Portofolio</h1>
+  <p class="subtitle">Buka halaman ini via <code>http://localhost:8787/generate.html</code> (bukan file://). Klik generate, tunggu selesai, lalu simpan ke <code>assets/downloads/</code>.</p>
+  <div class="steps">
+    <h2>Cara Pakai</h2>
+    <ol>
+      <li>Pastikan server lokal sudah berjalan (jalankan <code>python -m http.server 8787</code>)</li>
+      <li>Buka <code>http://localhost:8787/generate.html</code> di Chrome/Edge</li>
+      <li>Klik <strong>Generate PDF</strong>, tunggu selesai, simpan file ke <code>assets/downloads/</code></li>
+      <li>Klik <strong>Generate PPT</strong>, tunggu selesai, simpan file ke <code>assets/downloads/</code></li>
+      <li>Nama file harus persis: <code>Faishal Nizaar Rizq - Portfolio.pdf</code> dan <code>Faishal Nizaar Rizq - Portfolio.pptx</code></li>
+    </ol>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-pdf" id="gen-pdf">Generate PDF</button>
+    <button class="btn btn-ppt" id="gen-ppt">Generate PPT</button>
+  </div>
+  <div class="status" id="status">Siap. Klik tombol di atas untuk mulai.</div>
+</div>
+
+<div id="pdf-template">
+
+  <!-- PAGE 1: CV -->
+  <div class="pdf-page" style="font-family:Open Sans,Arial,sans-serif;display:flex;box-sizing:border-box;">
+    <div style="width:98mm;min-height:210mm;background:#0563bb;color:#fff;padding:10mm 7mm;box-sizing:border-box;">
+      <div style="text-align:center;margin-bottom:5mm;">
+        <div style="width:28mm;height:28mm;border-radius:50%;border:2px solid rgba(255,255,255,0.4);overflow:hidden;display:inline-flex;align-items:center;justify-content:center;">
+          <img src="assets/img/newprofileimg.jpeg" crossorigin="anonymous" style="width:28mm;height:28mm;object-fit:cover;">
+        </div>
+      </div>
+      <h1 style="font-size:13pt;font-weight:700;text-align:center;margin:0 0 1mm 0;color:#fff;">Faishal Nizaar Rizq</h1>
+      <p style="font-size:8pt;text-align:center;color:rgba(255,255,255,0.8);margin:0 0 5mm 0;">Web Developer &amp; IT Support</p>
+      <div style="height:0.3mm;background:rgba(255,255,255,0.3);margin-bottom:4mm;"></div>
+      <h3 style="font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:0.5mm;color:rgba(255,255,255,0.6);margin:0 0 3mm 0;">Kontak</h3>
+      <p style="font-size:7.5pt;margin:0 0 1.5mm 0;color:#fff;">&#9679; Ciamis, Jawa Barat</p>
+      <p style="font-size:7.5pt;margin:0 0 1.5mm 0;color:#fff;">&#9742; +62 823 2068 8672</p>
+      <p style="font-size:7.5pt;margin:0 0 1.5mm 0;color:#fff;">&#9993; rizqfaishalnizaar@gmail.com</p>
+      <p style="font-size:7.5pt;margin:0 0 1.5mm 0;color:#fff;">&#128279; github.com/rfaishalnr</p>
+      <p style="font-size:7.5pt;margin:0 0 4mm 0;color:#fff;">&#128279; linkedin.com/in/faishal-nizaar-rizq</p>
+      <div style="height:0.3mm;background:rgba(255,255,255,0.3);margin-bottom:4mm;"></div>
+      <h3 style="font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:0.5mm;color:rgba(255,255,255,0.6);margin:0 0 3mm 0;">Keahlian</h3>
+      <p style="font-size:7.5pt;font-weight:700;color:rgba(255,255,255,0.95);margin:0 0 0.8mm 0;">Web Development</p>
+      <p style="font-size:7pt;color:rgba(255,255,255,0.75);margin:0 0 3mm 0;">PHP, Laravel, HTML, CSS, JavaScript, Tailwind</p>
+      <p style="font-size:7.5pt;font-weight:700;color:rgba(255,255,255,0.95);margin:0 0 0.8mm 0;">Database</p>
+      <p style="font-size:7pt;color:rgba(255,255,255,0.75);margin:0 0 3mm 0;">MySQL</p>
+      <p style="font-size:7.5pt;font-weight:700;color:rgba(255,255,255,0.95);margin:0 0 0.8mm 0;">IT Support &amp; Troubleshooting</p>
+      <p style="font-size:7pt;color:rgba(255,255,255,0.75);margin:0 0 3mm 0;">Hardware, Software, Windows, Maintenance</p>
+      <p style="font-size:7.5pt;font-weight:700;color:rgba(255,255,255,0.95);margin:0 0 0.8mm 0;">Tools</p>
+      <p style="font-size:7pt;color:rgba(255,255,255,0.75);margin:0 0 4mm 0;">Git, GitHub, XAMPP, MS Office</p>
+      <div style="height:0.3mm;background:rgba(255,255,255,0.3);margin-bottom:4mm;"></div>
+      <h3 style="font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:0.5mm;color:rgba(255,255,255,0.6);margin:0 0 3mm 0;">Bahasa</h3>
+      <p style="font-size:7.5pt;color:#fff;margin:0 0 1.5mm 0;"><span style="display:inline-block;background:rgba(255,255,255,0.2);padding:0.5mm 2mm;border-radius:1mm;font-size:6.5pt;font-weight:700;margin-right:1.5mm;">ID</span> Indonesia <span style="color:rgba(255,255,255,0.65);">(Native)</span></p>
+      <p style="font-size:7.5pt;color:#fff;margin:0;"><span style="display:inline-block;background:rgba(255,255,255,0.2);padding:0.5mm 2mm;border-radius:1mm;font-size:6.5pt;font-weight:700;margin-right:1.5mm;">EN</span> English <span style="color:rgba(255,255,255,0.65);">(Intermediate)</span></p>
+    </div>
+    <div style="flex:1;padding:10mm 9mm;box-sizing:border-box;color:#333;overflow:hidden;">
+      <h2 style="font-size:8pt;font-weight:700;color:#0563bb;border-left:2mm solid #0563bb;padding-left:2mm;margin:0 0 2.5mm 0;text-transform:uppercase;letter-spacing:0.3mm;">Profil</h2>
+      <p style="font-size:7.5pt;line-height:1.6;color:#444;margin:0 0 5mm 0;">Fresh Graduate S1 Sistem Informasi Universitas Siliwangi (IPK 3,81). Berpengalaman dalam pengembangan aplikasi web dan IT Support melalui magang di PT Telkom Akses Tasikmalaya. Menguasai PHP, Laravel, MySQL, JavaScript, HTML/CSS, serta Microsoft Office dan Git.</p>
+      <h2 style="font-size:8pt;font-weight:700;color:#0563bb;border-left:2mm solid #0563bb;padding-left:2mm;margin:0 0 2.5mm 0;text-transform:uppercase;letter-spacing:0.3mm;">Pendidikan</h2>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5mm;">
+        <div><p style="font-size:8pt;font-weight:700;margin:0 0 0.5mm 0;color:#222;">S1 Sistem Informasi</p><p style="font-size:7.5pt;color:#666;margin:0;">Universitas Siliwangi</p></div>
+        <div style="text-align:right;"><p style="font-size:7.5pt;color:#0563bb;font-weight:700;margin:0 0 0.5mm 0;">2022 - 2026</p><p style="font-size:7.5pt;color:#666;margin:0;">IPK: 3.81</p></div>
+      </div>
+      <h2 style="font-size:8pt;font-weight:700;color:#0563bb;border-left:2mm solid #0563bb;padding-left:2mm;margin:0 0 2.5mm 0;text-transform:uppercase;letter-spacing:0.3mm;">Pengalaman Kerja</h2>
+      <div style="display:flex;justify-content:space-between;margin-bottom:1.5mm;">
+        <p style="font-size:8pt;font-weight:700;margin:0;color:#222;">IT &amp; Operation Support Intern</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:700;margin:0;">Agustus 2025</p>
+      </div>
+      <p style="font-size:7.5pt;color:#666;margin:0 0 2mm 0;font-style:italic;">PT Telkom Akses Tasikmalaya (Divisi Konstruksi)</p>
+      <ul style="font-size:7.5pt;color:#444;margin:0 0 5mm 0;padding-left:5mm;line-height:1.6;">
+        <li>Monitoring progres proyek, validasi dokumen, dan pendampingan uji terima jaringan lapangan.</li>
+        <li>Manajemen data administrasi dan penyusunan dokumentasi teknis operasional perusahaan.</li>
+      </ul>
+      <h2 style="font-size:8pt;font-weight:700;color:#0563bb;border-left:2mm solid #0563bb;padding-left:2mm;margin:0 0 2.5mm 0;text-transform:uppercase;letter-spacing:0.3mm;">Sertifikat</h2>
+      <ul style="font-size:7.5pt;color:#444;margin:0;padding-left:5mm;line-height:1.7;">
+        <li>SQL (Basic) - HackerRank (Sep 2026)</li>
+        <li>Certificate of Completion: Laravel - Cursa (Aug 2026)</li>
+        <li>Fullstack Laravel 12 &amp; Vue 3: Bangun Aplikasi Forum Modern - BuildWithAngga (Jun 2026)</li>
+        <li>SaaS Menu Digital Multi-Toko Laravel 12 - BuildWithAngga (Jun 2026)</li>
+        <li>Certificate of Internship - PT. Telkom Akses Tasikmalaya (Aug 2025)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PAGE 2: SERTIFIKAT -->
+  <div class="pdf-page" style="font-family:Open Sans,Arial,sans-serif;padding:8mm 10mm;box-sizing:border-box;">
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1.5mm;border-radius:1mm;margin-bottom:5mm;"></div>
+    <div style="margin-bottom:5mm;"><h2 style="font-size:14pt;font-weight:700;color:#0563bb;margin:0 0 1.5mm 0;">Sertifikat</h2><p style="font-size:8pt;color:#666;margin:0;">Sertifikat dan penghargaan yang telah saya raih dalam bidang pengembangan web dan IT.</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm;margin-bottom:4mm;">
+      <div style="background:#fff;border:0.3mm solid #e0e0e0;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;border-bottom:1mm solid #0563bb;">
+        <div class="img-box" style="width:100%;height:35mm;border-radius:2mm;margin-bottom:2mm;border:0.3mm solid #eaeaea;">
+          <img src="assets/img/sertif/sql_basic certificate.jpg" crossorigin="anonymous" style="max-width:100%;max-height:35mm;width:auto;height:auto;">
+        </div>
+        <p style="font-size:8.5pt;font-weight:700;color:#222;margin:0 0 1mm 0;">SQL (Basic)</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:600;margin:0 0 1.5mm 0;">HackerRank &bull; Sep 2026</p>
+        <p style="font-size:7pt;color:#666;margin:0;line-height:1.4;">Sertifikasi keahlian dasar dalam menulis query SQL dan manipulasi database relasional.</p>
+      </div>
+      <div style="background:#fff;border:0.3mm solid #e0e0e0;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;border-bottom:1mm solid #0563bb;">
+        <div class="img-box" style="width:100%;height:35mm;border-radius:2mm;margin-bottom:2mm;border:0.3mm solid #eaeaea;">
+          <img src="assets/img/sertif/cursa_certificate.jpg" crossorigin="anonymous" style="max-width:100%;max-height:35mm;width:auto;height:auto;">
+        </div>
+        <p style="font-size:8.5pt;font-weight:700;color:#222;margin:0 0 1mm 0;">Certificate of Completion: Laravel</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:600;margin:0 0 1.5mm 0;">Cursa &bull; Aug 2026</p>
+        <p style="font-size:7pt;color:#666;margin:0;line-height:1.4;">Kursus komprehensif framework PHP Laravel untuk pengembangan web tingkat lanjut.</p>
+      </div>
+      <div style="background:#fff;border:0.3mm solid #e0e0e0;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;border-bottom:1mm solid #0563bb;">
+        <div class="img-box" style="width:100%;height:35mm;border-radius:2mm;margin-bottom:2mm;border:0.3mm solid #eaeaea;">
+          <img src="assets/img/sertif/fullstack-laravel-12-vue-3-bangun-aplikasi-forum-modern-faishal-nizaar-rizq.jpg" crossorigin="anonymous" style="max-width:100%;max-height:35mm;width:auto;height:auto;">
+        </div>
+        <p style="font-size:8.5pt;font-weight:700;color:#222;margin:0 0 1mm 0;">Fullstack Laravel 12 &amp; Vue 3</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:600;margin:0 0 1.5mm 0;">BuildWithAngga &bull; Jun 2026</p>
+        <p style="font-size:7pt;color:#666;margin:0;line-height:1.4;">Membangun aplikasi forum modern dengan arsitektur SPA menggunakan Vue 3 dan Laravel 12.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+      <div style="background:#fff;border:0.3mm solid #e0e0e0;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;border-bottom:1mm solid #0563bb;">
+        <div class="img-box" style="width:100%;height:35mm;border-radius:2mm;margin-bottom:2mm;border:0.3mm solid #eaeaea;">
+          <img src="assets/img/sertif/saas-menu-digital-multi-toko-laravel-12-bonus-source-code-faishal-nizaar-rizq.jpg" crossorigin="anonymous" style="max-width:100%;max-height:35mm;width:auto;height:auto;">
+        </div>
+        <p style="font-size:8.5pt;font-weight:700;color:#222;margin:0 0 1mm 0;">SaaS Menu Digital Multi-Toko</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:600;margin:0 0 1.5mm 0;">BuildWithAngga &bull; Jun 2026</p>
+        <p style="font-size:7pt;color:#666;margin:0;line-height:1.4;">Pengembangan platform SaaS point-of-sales &amp; QR order untuk multi-tenant menggunakan ekosistem Laravel 12.</p>
+      </div>
+      <div style="background:#fff;border:0.3mm solid #e0e0e0;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;border-bottom:1mm solid #0563bb;">
+        <div class="img-box" style="width:100%;height:35mm;border-radius:2mm;margin-bottom:2mm;border:0.3mm solid #eaeaea;">
+          <img src="assets/img/sertif/Certificate KP.jpg" crossorigin="anonymous" style="max-width:100%;max-height:35mm;width:auto;height:auto;">
+        </div>
+        <p style="font-size:8.5pt;font-weight:700;color:#222;margin:0 0 1mm 0;">Sertifikat Magang (Internship)</p>
+        <p style="font-size:7.5pt;color:#0563bb;font-weight:600;margin:0 0 1.5mm 0;">PT Telkom Akses &bull; Aug 2025</p>
+        <p style="font-size:7pt;color:#666;margin:0;line-height:1.4;">Magang pada Divisi Konstruksi dalam pengelolaan data, administrasi teknis, dan IT Support operasional.</p>
+      </div>
+    </div>
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1mm;border-radius:1mm;margin-top:4mm;"></div>
+  </div>
+
+  <!-- PAGE 3: PATA -->
+  <div class="pdf-page" style="font-family:Open Sans,Arial,sans-serif;padding:8mm 10mm;box-sizing:border-box;">
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1.5mm;border-radius:1mm;margin-bottom:5mm;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5mm;">
+      <div style="flex:1;"><h2 style="font-size:14pt;font-weight:700;color:#0563bb;margin:0 0 1.5mm 0;">1. PATA - Pengelolaan Tagihan Mitra</h2><p style="font-size:8pt;color:#666;margin:0;line-height:1.5;">Sistem manajemen tagihan mitra berbasis web untuk PT Telkom Akses Tasikmalaya guna mengurangi kesalahan dokumen tagihan. Dilengkapi fitur monitoring status dan pengelolaan waspang.</p></div>
+      <div style="display:flex;gap:2mm;flex-shrink:0;margin-left:5mm;"><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">Laravel</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">PHP</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">MySQL</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pataweb/pataweb.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pataweb/Halaman Input BOQ.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pataweb/Laman Preview 1.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pataweb/Laman Tagihan - Buat Tagihan Page 1.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+    </div>
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1mm;border-radius:1mm;margin-top:4mm;"></div>
+  </div>
+
+  <!-- PAGE 4: PesanMakan -->
+  <div class="pdf-page" style="font-family:Open Sans,Arial,sans-serif;padding:8mm 10mm;box-sizing:border-box;">
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1.5mm;border-radius:1mm;margin-bottom:5mm;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5mm;">
+      <div style="flex:1;"><h2 style="font-size:14pt;font-weight:700;color:#0563bb;margin:0 0 1.5mm 0;">2. PesanMakan - Multi-Tenant Digital Menu</h2><p style="font-size:8pt;color:#666;margin:0;line-height:1.5;">Platform SaaS multi-tenant untuk manajemen restoran dengan QR Code Ordering, Midtrans Payment Gateway, dan real-time order tracking berbasis Laravel 12.</p></div>
+      <div style="display:flex;gap:2mm;flex-shrink:0;margin-left:5mm;"><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">Laravel 12</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">Tailwind CSS</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">MySQL</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pesanmakan/pesanmakanweb.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191000.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191011.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191043.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+    </div>
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1mm;border-radius:1mm;margin-top:4mm;"></div>
+  </div>
+
+  <!-- PAGE 5: Desa Cigalontang -->
+  <div class="pdf-page" style="font-family:Open Sans,Arial,sans-serif;padding:8mm 10mm;box-sizing:border-box;">
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1.5mm;border-radius:1mm;margin-bottom:5mm;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5mm;">
+      <div style="flex:1;"><h2 style="font-size:14pt;font-weight:700;color:#0563bb;margin:0 0 1.5mm 0;">3. Website Profil Desa Wisata Cigalontang</h2><p style="font-size:8pt;color:#666;margin:0;line-height:1.5;">Website informasi publik untuk mempromosikan sejarah, potensi UMKM, dan katalog paket wisata desa sebagai kontribusi digital pada program KKN Universitas Siliwangi.</p></div>
+      <div style="display:flex;gap:2mm;flex-shrink:0;margin-left:5mm;"><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">HTML/CSS</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">Bootstrap</span><span style="background:#e6f0fa;color:#0563bb;padding:1mm 3mm;border-radius:3mm;font-size:7.5pt;font-weight:700;">JavaScript</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/webcigalontang/webcigalontang.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/webcigalontang/paketdesa.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/webcigalontang/ngulak.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+      <div class="img-box" style="width:100%;height:72mm;border-radius:2mm;border:0.3mm solid #ddd;">
+        <img src="assets/img/portfolio/webcigalontang/potensidesa.jpg" crossorigin="anonymous" style="max-width:100%;max-height:72mm;width:auto;height:auto;">
+      </div>
+    </div>
+    <div style="background:linear-gradient(90deg,#0563bb,#0099ff);height:1mm;border-radius:1mm;margin-top:4mm;"></div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+
+<script>
+  const statusEl=document.getElementById("status");
+  const genPdfBtn=document.getElementById("gen-pdf");
+  const genPptBtn=document.getElementById("gen-ppt");
+  const tmpl=document.getElementById("pdf-template");
+
+  function setStatus(m,t=""){statusEl.textContent=m;statusEl.className="status"+(t?" "+t:"");}
+  function setLoading(v){genPdfBtn.disabled=v;genPptBtn.disabled=v;}
+
+  function preloadImgs(container){
+    const promises=[];
+    container.querySelectorAll("img").forEach(img=>{
+      promises.push(new Promise(r=>{
+        if(img.complete&&img.naturalWidth>0)return r();
+        img.onload=r; img.onerror=r;
+      }));
+    });
+    return Promise.all(promises);
+  }
+
+  async function capturePages(){
+    tmpl.style.display="block";
+    setStatus("Memuat semua gambar...","generating");
+    await preloadImgs(tmpl);
+    await new Promise(r=>setTimeout(r,800));
+
+    const pages=Array.from(tmpl.querySelectorAll(".pdf-page"));
+    const canvases=[];
+
+    for(let i=0;i<pages.length;i++){
+      setStatus("Merender halaman "+(i+1)+" dari "+pages.length+"...","generating");
+      const c=await html2canvas(pages[i],{
+        scale: 4,
+        useCORS: true,
+        allowTaint: false,
+        logging: false,
+        imageTimeout: 0,
+        width: pages[i].offsetWidth,
+        height: pages[i].offsetHeight
+      });
+      canvases.push(c);
+    }
+
+    tmpl.style.display="none";
+    return canvases;
+  }
+
+  genPdfBtn.addEventListener("click",async()=>{
+    setLoading(true);
+    try{
+      const canvases=await capturePages();
+      setStatus("Membuat file PDF...","generating");
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF({unit:"mm",format:"a4",orientation:"landscape"});
+      canvases.forEach((c,i)=>{
+        if(i>0)pdf.addPage();
+        pdf.addImage(c.toDataURL("image/jpeg",1.0),"JPEG",0,0,297,210);
+      });
+      pdf.save("Faishal Nizaar Rizq - Portfolio.pdf");
+      setStatus("SELESAI! Simpan file PDF ke folder assets/downloads/","done");
+    }catch(e){console.error(e);setStatus("Error: "+e.message,"error");}
+    setLoading(false);
+  });
+
+  genPptBtn.addEventListener("click",async()=>{
+    setLoading(true);
+    try{
+      const canvases=await capturePages();
+      setStatus("Membuat file PPTX...","generating");
+      const pptx=new PptxGenJS();
+      pptx.defineLayout({name:"A4L",width:11.69,height:8.27});
+      pptx.layout="A4L";
+      pptx.title="Faishal Nizaar Rizq - Portfolio";
+      canvases.forEach(c=>{
+        const s=pptx.addSlide();
+        s.addImage({data:c.toDataURL("image/jpeg",1.0),x:0,y:0,w:"100%",h:"100%"});
+      });
+      await pptx.writeFile({fileName:"Faishal Nizaar Rizq - Portfolio.pptx"});
+      setStatus("SELESAI! Simpan file PPTX ke folder assets/downloads/","done");
+    }catch(e){console.error(e);setStatus("Error: "+e.message,"error");}
+    setLoading(false);
+  });
+</script>
+</body>
+</html>

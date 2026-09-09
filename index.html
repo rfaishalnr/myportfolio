@@ -510,10 +510,17 @@
                   Berpengalaman dalam manajemen data administrasi, penyusunan dokumentasi teknis, serta memiliki 
                   koordinasi tim dan komunikasi profesional yang baik.
                 </p>
-                <div class="mb-4 download-btn-container">
-                  <button id="download-pdf-btn" class="btn btn-primary shadow-sm" style="border-radius: 50px; padding: 10px 25px; font-weight: 600;">
+                <div class="mb-4 download-btn-container d-flex flex-wrap gap-2">
+                  <a id="download-pdf-btn" href="assets/downloads/Faishal%20Nizaar%20Rizq%20-%20Portfolio.pdf"
+                    download class="btn btn-primary shadow-sm"
+                    style="border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none;">
                     <i class="bi bi-file-earmark-pdf me-2"></i> Unduh Portofolio (PDF)
-                  </button>
+                  </a>
+                  <a id="download-ppt-btn" href="assets/downloads/Faishal%20Nizaar%20Rizq%20-%20Portfolio.pptx"
+                    download class="btn btn-warning shadow-sm"
+                    style="border-radius: 50px; padding: 10px 25px; font-weight: 600; color: #fff; text-decoration: none;">
+                    <i class="bi bi-file-earmark-ppt me-2"></i> Unduh Portofolio (PPT)
+                  </a>
                 </div>
                 <div class="row mt-4">
                   <div class="col-lg-6">
@@ -890,8 +897,8 @@
         <div style="width: 98mm; min-height: 210mm; background: #0563bb; color: #fff; padding: 10mm 7mm; box-sizing: border-box;">
           <!-- Photo -->
           <div style="text-align: center; margin-bottom: 5mm;">
-            <img src="assets/img/newprofileimg.jpeg" alt="Profile"
-              style="width: 28mm; height: 28mm; border-radius: 50%; object-fit: contain; border: 2px solid rgba(255,255,255,0.4);">
+            <div style="width: 28mm; height: 28mm; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); background-image: url('assets/img/newprofileimg.jpeg'); background-size: cover; background-position: center; display: inline-block;">
+          </div>
           </div>
           <!-- Name -->
           <h1 style="font-size: 13pt; font-weight: 700; text-align: center; margin: 0 0 1mm 0; color: #fff;">Faishal Nizaar Rizq</h1>
@@ -965,7 +972,58 @@
         </div>
       </div>
 
-      <!-- ===== PAGE 2: PORTFOLIO - PATA ===== -->
+      <!-- ===== PAGE 2: SERTIFIKAT ===== -->
+      <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
+        <!-- Header -->
+        <div style="margin-bottom: 5mm;">
+          <h2 style="font-size: 14pt; font-weight: 700; color: #0563bb; margin: 0 0 1.5mm 0;">Sertifikat</h2>
+          <p style="font-size: 8pt; color: #666; margin: 0;">Sertifikat dan penghargaan yang telah saya raih dalam bidang pengembangan web dan IT.</p>
+        </div>
+        <!-- Certificates Grid: 3 columns top row, 2 columns bottom row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; margin-bottom: 4mm;">
+          <!-- Cert 1: SQL Basic -->
+          <div style="background: #fff; border: 0.3mm solid #e0e0e0; border-radius: 3mm; padding: 3mm; display: flex; flex-direction: column; border-bottom: 1mm solid #0563bb;">
+            <div style="width: 100%; height: 35mm; border-radius: 2mm; margin-bottom: 2mm; background-color: #f8f9fa; border: 0.3mm solid #eaeaea; background-image: url('assets/img/sertif/sql_basic certificate.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <p style="font-size: 8.5pt; font-weight: 700; color: #222; margin: 0 0 1mm 0;">SQL (Basic)</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 600; margin: 0 0 1.5mm 0;">HackerRank &bull; Sep 2026</p>
+            <p style="font-size: 7pt; color: #666; margin: 0; line-height: 1.4;">Sertifikasi keahlian dasar dalam menulis query SQL dan manipulasi database relasional.</p>
+          </div>
+          <!-- Cert 2: Laravel Cursa -->
+          <div style="background: #fff; border: 0.3mm solid #e0e0e0; border-radius: 3mm; padding: 3mm; display: flex; flex-direction: column; border-bottom: 1mm solid #0563bb;">
+            <div style="width: 100%; height: 35mm; border-radius: 2mm; margin-bottom: 2mm; background-color: #f8f9fa; border: 0.3mm solid #eaeaea; background-image: url('assets/img/sertif/cursa_certificate.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <p style="font-size: 8.5pt; font-weight: 700; color: #222; margin: 0 0 1mm 0;">Certificate of Completion: Laravel</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 600; margin: 0 0 1.5mm 0;">Cursa &bull; Aug 2026</p>
+            <p style="font-size: 7pt; color: #666; margin: 0; line-height: 1.4;">Kursus komprehensif framework PHP Laravel untuk pengembangan web tingkat lanjut.</p>
+          </div>
+          <!-- Cert 3: Fullstack Laravel 12 & Vue 3 -->
+          <div style="background: #fff; border: 0.3mm solid #e0e0e0; border-radius: 3mm; padding: 3mm; display: flex; flex-direction: column; border-bottom: 1mm solid #0563bb;">
+            <div style="width: 100%; height: 35mm; border-radius: 2mm; margin-bottom: 2mm; background-color: #f8f9fa; border: 0.3mm solid #eaeaea; background-image: url('assets/img/sertif/fullstack-laravel-12-vue-3-bangun-aplikasi-forum-modern-faishal-nizaar-rizq.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <p style="font-size: 8.5pt; font-weight: 700; color: #222; margin: 0 0 1mm 0;">Fullstack Laravel 12 &amp; Vue 3</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 600; margin: 0 0 1.5mm 0;">BuildWithAngga &bull; Jun 2026</p>
+            <p style="font-size: 7pt; color: #666; margin: 0; line-height: 1.4;">Membangun aplikasi forum modern dengan arsitektur SPA menggunakan Vue 3 dan Laravel 12.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
+          <!-- Cert 4: SaaS Menu Digital -->
+          <div style="background: #fff; border: 0.3mm solid #e0e0e0; border-radius: 3mm; padding: 3mm; display: flex; flex-direction: column; border-bottom: 1mm solid #0563bb;">
+            <div style="width: 100%; height: 35mm; border-radius: 2mm; margin-bottom: 2mm; background-color: #f8f9fa; border: 0.3mm solid #eaeaea; background-image: url('assets/img/sertif/saas-menu-digital-multi-toko-laravel-12-bonus-source-code-faishal-nizaar-rizq.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <p style="font-size: 8.5pt; font-weight: 700; color: #222; margin: 0 0 1mm 0;">SaaS Menu Digital Multi-Toko</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 600; margin: 0 0 1.5mm 0;">BuildWithAngga &bull; Jun 2026</p>
+            <p style="font-size: 7pt; color: #666; margin: 0; line-height: 1.4;">Pengembangan platform SaaS point-of-sales &amp; QR order untuk multi-tenant menggunakan ekosistem Laravel 12.</p>
+          </div>
+          <!-- Cert 5: Internship Telkom -->
+          <div style="background: #fff; border: 0.3mm solid #e0e0e0; border-radius: 3mm; padding: 3mm; display: flex; flex-direction: column; border-bottom: 1mm solid #0563bb;">
+            <div style="width: 100%; height: 35mm; border-radius: 2mm; margin-bottom: 2mm; background-color: #f8f9fa; border: 0.3mm solid #eaeaea; background-image: url('assets/img/sertif/Certificate KP.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <p style="font-size: 8.5pt; font-weight: 700; color: #222; margin: 0 0 1mm 0;">Sertifikat Magang (Internship)</p>
+            <p style="font-size: 7.5pt; color: #0563bb; font-weight: 600; margin: 0 0 1.5mm 0;">PT Telkom Akses &bull; Aug 2025</p>
+            <p style="font-size: 7pt; color: #666; margin: 0; line-height: 1.4;">Magang pada Divisi Konstruksi dalam pengelolaan data, administrasi teknis, dan IT Support operasional.</p>
+          </div>
+        </div>
+        <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
+      </div>
+
+      <!-- ===== PAGE 3: PORTFOLIO - PATA ===== -->
       <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
         <!-- Top bar -->
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
@@ -983,16 +1041,16 @@
         </div>
         <!-- Images 2x2 -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
-          <img src="assets/img/portfolio/pataweb/pataweb.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pataweb/Halaman Input BOQ.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pataweb/Laman Preview 1.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pataweb/Laman Tagihan - Buat Tagihan Page 1.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pataweb/pataweb.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pataweb/Halaman Input BOQ.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pataweb/Laman Preview 1.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pataweb/Laman Tagihan - Buat Tagihan Page 1.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
         </div>
         <!-- Bottom bar -->
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
       </div>
 
-      <!-- ===== PAGE 3: PORTFOLIO - PesanMakan ===== -->
+      <!-- ===== PAGE 4: PORTFOLIO - PesanMakan ===== -->
       <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5mm;">
@@ -1007,15 +1065,15 @@
           </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
-          <img src="assets/img/portfolio/pesanmakan/pesanmakanweb.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191000.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191011.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191043.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pesanmakan/pesanmakanweb.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191000.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191011.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/pesanmakan/Screenshot 2026-09-05 191043.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
         </div>
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
       </div>
 
-      <!-- ===== PAGE 4: PORTFOLIO - Desa Cigalontang ===== -->
+      <!-- ===== PAGE 5: PORTFOLIO - Desa Cigalontang ===== -->
       <div class="pdf-page" style="font-family: 'Open Sans', Arial, sans-serif; padding: 8mm 10mm; box-sizing: border-box;">
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1.5mm; border-radius: 1mm; margin-bottom: 5mm;"></div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5mm;">
@@ -1030,13 +1088,14 @@
           </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;">
-          <img src="assets/img/portfolio/webcigalontang/webcigalontang.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/webcigalontang/paketdesa.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/webcigalontang/ngulak.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
-          <img src="assets/img/portfolio/webcigalontang/potensidesa.jpg" style="width: 100%; height: 72mm; object-fit: contain; border-radius: 2mm; border: 0.3mm solid #ddd; background: #f8f8f8;">
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/webcigalontang/webcigalontang.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/webcigalontang/paketdesa.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/webcigalontang/ngulak.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+          <div style="width: 100%; height: 72mm; border-radius: 2mm; border: 0.3mm solid #ddd; background-color: #f8f8f8; background-image: url('assets/img/portfolio/webcigalontang/potensidesa.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
         </div>
         <div style="background: linear-gradient(90deg, #0563bb, #0099ff); height: 1mm; border-radius: 1mm; margin-top: 4mm;"></div>
       </div>
+
 
     </div>
 
@@ -1079,91 +1138,25 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- html2canvas + jsPDF for PDF Download (per-page rendering = no blank pages) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- html2canvas + jsPDF + PptxGenJS sudah dipindah ke generate.html -->
+  <!-- Gunakan generate.html untuk membuat file PDF/PPT statis, simpan ke assets/downloads/ -->
 
-  <!-- Custom SPA Navigation Script -->
+  <!-- Main Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Menangani klik pada tombol "Tentang Saya" agar lebih mulus
+      // Smooth scroll tombol hero
       const btnTentangSaya = document.querySelector('a.hero-btn[href="#about"]');
       if (btnTentangSaya) {
         btnTentangSaya.addEventListener('click', function (e) {
           e.preventDefault();
           const target = document.querySelector('#about');
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop,
-              behavior: 'smooth'
-            });
-          }
+          if (target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
         });
       }
 
       // Initialize GLightbox
-      const portfolioLightbox = GLightbox({
-        selector: '.glightbox'
-      });
-
-      // Initialize PDF Download functionality
-      setupPdfDownload();
+      GLightbox({ selector: '.glightbox' });
     });
-
-    function setupPdfDownload() {
-      const downloadBtn = document.getElementById('download-pdf-btn');
-      if (!downloadBtn) return;
-
-      const pdfTemplate = document.getElementById('pdf-template');
-      if (!pdfTemplate) return;
-
-      const originalBtnText = downloadBtn.innerHTML;
-
-      downloadBtn.addEventListener('click', async function (e) {
-        e.preventDefault();
-
-        downloadBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Menyiapkan PDF...';
-        downloadBtn.disabled = true;
-
-        // Show template so html2canvas can see it
-        pdfTemplate.style.display = 'block';
-
-        // Wait for reflow
-        await new Promise(r => setTimeout(r, 200));
-
-        try {
-          const { jsPDF } = window.jspdf;
-          const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'landscape' });
-          const pages = Array.from(pdfTemplate.querySelectorAll('.pdf-page'));
-
-          for (let i = 0; i < pages.length; i++) {
-            if (i > 0) pdf.addPage();
-
-            const canvas = await html2canvas(pages[i], {
-              scale: 2,
-              useCORS: true,
-              logging: false,
-              width:  pages[i].offsetWidth,
-              height: pages[i].offsetHeight
-            });
-
-            const imgData = canvas.toDataURL('image/jpeg', 0.98);
-            pdf.addImage(imgData, 'JPEG', 0, 0, 297, 210);
-          }
-
-          pdf.save('Faishal Nizaar Rizq - Portfolio.pdf');
-
-        } catch (err) {
-          console.error('PDF error:', err);
-          alert('Gagal membuat PDF. Silakan coba lagi.');
-        }
-
-        pdfTemplate.style.display = 'none';
-        downloadBtn.innerHTML = originalBtnText;
-        downloadBtn.disabled = false;
-      });
-    }
-
   </script>
 </body>
 
